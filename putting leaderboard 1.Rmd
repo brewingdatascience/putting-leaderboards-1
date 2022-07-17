@@ -203,7 +203,6 @@ group_by(course, player, Timestamp, Game.style, position, Purpose, Outcome) %>%
 summarise_at(.,vars(putts.made, score), 
               funs(sum(., na.rm = TRUE))) %>% 
   mutate(circle2s = score-putts.made) %>% 
-  mutate(lastUpdated = Sys.time()) %>% 
   arrange(desc(score)) %>% 
   select(player, score, circle2s, putts.made, everything())
 
@@ -219,12 +218,33 @@ summarise_at(.,vars(putts.made),
               funs(n(), sum(., na.rm = TRUE))) %>%
   mutate(attempts = n, made = sum) %>%
   mutate(madePct =round(100*(made/attempts), 1)) %>% 
-  select(course, hole, attempts, made, madePct) %>% 
-  mutate(lastUpdated = Sys.time())
+  select(course, hole, attempts, made, madePct)
 
 write_sheet(holeSummary, ss = "https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1VnkurByc9DsmGCzeoomI5AoY/edit#gid=2095346489", sheet = "holeSummary")
 
 
+## league average
+leagueMeanScore <- individualRounds %>%
+  group_by(course) %>%
+  summarise_at(.,vars(score, putts.made), 
+               funs(n(), mean(., na.rm = TRUE), sd(., na.rm = TRUE))) %>% 
+  mutate(leagueMean = score_mean) %>%
+  mutate(leagueSD = score_sd) %>%
+  select(course, leagueMean, leagueSD)
+
+##putting WAR
+puttingWAR <- individualRounds %>% 
+  left_join(leagueMeanScore, by = "course") %>% 
+  mutate(gWAR = leagueSD*(score - leagueMean)) %>% 
+group_by(player, course) %>% 
+summarise_at(.,vars(gWAR), 
+funs(mean(., na.rm = TRUE), n())) %>% 
+  arrange(desc(mean))
+
+write_sheet(puttingWAR, ss = "https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1VnkurByc9DsmGCzeoomI5AoY/edit#gid=2095346489", sheet = "puttingWAR")
+
+a <- data.frame(StatsLastUpdated=Sys.time()) 
+write_sheet(a, ss = "https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1VnkurByc9DsmGCzeoomI5AoY/edit#gid=2095346489", sheet = "StatsLastUpdated")
 ```
 
 
