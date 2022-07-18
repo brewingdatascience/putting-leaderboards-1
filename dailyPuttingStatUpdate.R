@@ -1,10 +1,3 @@
----
-title: "putting data"
-output: html_notebook
----
-
-# dailyPuttingStatUpdate.R
-```{r}
 
 library(tidyverse)
 library(googlesheets4)
@@ -27,12 +20,12 @@ tidySolo <- gsraw %>%
   mutate(course=Putting.Course) %>% 
   #select(course=Putting.Course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, starts_with("solo.putts.made"))  %>% 
   pivot_longer(c("solo.putts.made..hole1.", "solo.putts.made..hole2.", 
-"solo.putts.made..hole3.", "solo.putts.made..hole4.", "solo.putts.made..hole5.", 
-"solo.putts.made..hole6.", "solo.putts.made..hole7.", "solo.putts.made..hole8.", 
-"solo.putts.made..hole9.", "solo.putts.made..hole10.", "solo.putts.made..hole11.", 
-"solo.putts.made..hole12.", "solo.putts.made..hole13.", "solo.putts.made..hole14.", 
-"solo.putts.made..hole15.", "solo.putts.made..hole16.", "solo.putts.made..hole17.", 
-"solo.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
+                 "solo.putts.made..hole3.", "solo.putts.made..hole4.", "solo.putts.made..hole5.", 
+                 "solo.putts.made..hole6.", "solo.putts.made..hole7.", "solo.putts.made..hole8.", 
+                 "solo.putts.made..hole9.", "solo.putts.made..hole10.", "solo.putts.made..hole11.", 
+                 "solo.putts.made..hole12.", "solo.putts.made..hole13.", "solo.putts.made..hole14.", 
+                 "solo.putts.made..hole15.", "solo.putts.made..hole16.", "solo.putts.made..hole17.", 
+                 "solo.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
   mutate(hole = as.integer(gsub("solo.putts.made..hole", "", hole))) %>% 
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(result == "putt made", 1, 999))) %>%
@@ -52,12 +45,12 @@ tidy1on1_home <- gsraw %>% filter(Game.style == "1-on-1") %>%
   mutate(course=Putting.Course) %>% 
   #select(starts_with("h2h."))  %>% 
   pivot_longer(c( "h2h.putts.made..hole1.", 
-"h2h.putts.made..hole2.", "h2h.putts.made..hole3.", "h2h.putts.made..hole4.", 
-"h2h.putts.made..hole5.", "h2h.putts.made..hole6.", "h2h.putts.made..hole7.", 
-"h2h.putts.made..hole8.", "h2h.putts.made..hole9.", "h2h.putts.made..hole10.", 
-"h2h.putts.made..hole11.", "h2h.putts.made..hole12.", "h2h.putts.made..hole13.", 
-"h2h.putts.made..hole14.", "h2h.putts.made..hole15.", "h2h.putts.made..hole16.", 
-"h2h.putts.made..hole17.", "h2h.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
+                  "h2h.putts.made..hole2.", "h2h.putts.made..hole3.", "h2h.putts.made..hole4.", 
+                  "h2h.putts.made..hole5.", "h2h.putts.made..hole6.", "h2h.putts.made..hole7.", 
+                  "h2h.putts.made..hole8.", "h2h.putts.made..hole9.", "h2h.putts.made..hole10.", 
+                  "h2h.putts.made..hole11.", "h2h.putts.made..hole12.", "h2h.putts.made..hole13.", 
+                  "h2h.putts.made..hole14.", "h2h.putts.made..hole15.", "h2h.putts.made..hole16.", 
+                  "h2h.putts.made..hole17.", "h2h.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
   mutate(hole = as.integer(gsub("h2h.putts.made..hole", "", hole))) %>% 
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("home", result)==TRUE, 1, 0))) %>%
@@ -76,12 +69,12 @@ tidy1on1_visitor <- gsraw %>% filter(Game.style == "1-on-1") %>%
   mutate(course=Putting.Course) %>% 
   #select(starts_with("h2h."))  %>% 
   pivot_longer(c( "h2h.putts.made..hole1.", 
-"h2h.putts.made..hole2.", "h2h.putts.made..hole3.", "h2h.putts.made..hole4.", 
-"h2h.putts.made..hole5.", "h2h.putts.made..hole6.", "h2h.putts.made..hole7.", 
-"h2h.putts.made..hole8.", "h2h.putts.made..hole9.", "h2h.putts.made..hole10.", 
-"h2h.putts.made..hole11.", "h2h.putts.made..hole12.", "h2h.putts.made..hole13.", 
-"h2h.putts.made..hole14.", "h2h.putts.made..hole15.", "h2h.putts.made..hole16.", 
-"h2h.putts.made..hole17.", "h2h.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
+                  "h2h.putts.made..hole2.", "h2h.putts.made..hole3.", "h2h.putts.made..hole4.", 
+                  "h2h.putts.made..hole5.", "h2h.putts.made..hole6.", "h2h.putts.made..hole7.", 
+                  "h2h.putts.made..hole8.", "h2h.putts.made..hole9.", "h2h.putts.made..hole10.", 
+                  "h2h.putts.made..hole11.", "h2h.putts.made..hole12.", "h2h.putts.made..hole13.", 
+                  "h2h.putts.made..hole14.", "h2h.putts.made..hole15.", "h2h.putts.made..hole16.", 
+                  "h2h.putts.made..hole17.", "h2h.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
   mutate(hole = as.integer(gsub("h2h.putts.made..hole", "", hole))) %>% 
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("visitor", result)==TRUE, 1, 0))) %>%
@@ -101,11 +94,11 @@ tidy3way_player1 <- gsraw %>% filter(Game.style == "3way") %>%
   mutate(course=Putting.Course) %>% 
   #select(starts_with("X3way."))  %>% 
   pivot_longer(c("X3way.putts.made..hole1.", "X3way.putts.made..hole2.", "X3way.putts.made..hole3.", 
-"X3way.putts.made..hole4.", "X3way.putts.made..hole5.", "X3way.putts.made..hole6.", 
-"X3way.putts.made..hole7.", "X3way.putts.made..hole8.", "X3way.putts.made..hole9.", 
-"X3way.putts.made..hole10.", "X3way.putts.made..hole11.", "X3way.putts.made..hole12.", 
-"X3way.putts.made..hole13.", "X3way.putts.made..hole14.", "X3way.putts.made..hole15.", 
-"X3way.putts.made..hole16.", "X3way.putts.made..hole17.", "X3way.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
+                 "X3way.putts.made..hole4.", "X3way.putts.made..hole5.", "X3way.putts.made..hole6.", 
+                 "X3way.putts.made..hole7.", "X3way.putts.made..hole8.", "X3way.putts.made..hole9.", 
+                 "X3way.putts.made..hole10.", "X3way.putts.made..hole11.", "X3way.putts.made..hole12.", 
+                 "X3way.putts.made..hole13.", "X3way.putts.made..hole14.", "X3way.putts.made..hole15.", 
+                 "X3way.putts.made..hole16.", "X3way.putts.made..hole17.", "X3way.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
   mutate(hole = as.integer(gsub("X3way.putts.made..hole", "", hole))) %>% 
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("player1", result)==TRUE, 1, 0))) %>%
@@ -124,11 +117,11 @@ tidy3way_player2 <- gsraw %>% filter(Game.style == "3way") %>%
   mutate(course=Putting.Course) %>% 
   #select(starts_with("X3way."))  %>% 
   pivot_longer(c("X3way.putts.made..hole1.", "X3way.putts.made..hole2.", "X3way.putts.made..hole3.", 
-"X3way.putts.made..hole4.", "X3way.putts.made..hole5.", "X3way.putts.made..hole6.", 
-"X3way.putts.made..hole7.", "X3way.putts.made..hole8.", "X3way.putts.made..hole9.", 
-"X3way.putts.made..hole10.", "X3way.putts.made..hole11.", "X3way.putts.made..hole12.", 
-"X3way.putts.made..hole13.", "X3way.putts.made..hole14.", "X3way.putts.made..hole15.", 
-"X3way.putts.made..hole16.", "X3way.putts.made..hole17.", "X3way.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
+                 "X3way.putts.made..hole4.", "X3way.putts.made..hole5.", "X3way.putts.made..hole6.", 
+                 "X3way.putts.made..hole7.", "X3way.putts.made..hole8.", "X3way.putts.made..hole9.", 
+                 "X3way.putts.made..hole10.", "X3way.putts.made..hole11.", "X3way.putts.made..hole12.", 
+                 "X3way.putts.made..hole13.", "X3way.putts.made..hole14.", "X3way.putts.made..hole15.", 
+                 "X3way.putts.made..hole16.", "X3way.putts.made..hole17.", "X3way.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
   mutate(hole = as.integer(gsub("X3way.putts.made..hole", "", hole))) %>% 
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("player2", result)==TRUE, 1, 0))) %>%
@@ -147,11 +140,11 @@ tidy3way_player3 <- gsraw %>% filter(Game.style == "3way") %>%
   mutate(course=Putting.Course) %>% 
   #select(starts_with("X3way."))  %>% 
   pivot_longer(c("X3way.putts.made..hole1.", "X3way.putts.made..hole2.", "X3way.putts.made..hole3.", 
-"X3way.putts.made..hole4.", "X3way.putts.made..hole5.", "X3way.putts.made..hole6.", 
-"X3way.putts.made..hole7.", "X3way.putts.made..hole8.", "X3way.putts.made..hole9.", 
-"X3way.putts.made..hole10.", "X3way.putts.made..hole11.", "X3way.putts.made..hole12.", 
-"X3way.putts.made..hole13.", "X3way.putts.made..hole14.", "X3way.putts.made..hole15.", 
-"X3way.putts.made..hole16.", "X3way.putts.made..hole17.", "X3way.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
+                 "X3way.putts.made..hole4.", "X3way.putts.made..hole5.", "X3way.putts.made..hole6.", 
+                 "X3way.putts.made..hole7.", "X3way.putts.made..hole8.", "X3way.putts.made..hole9.", 
+                 "X3way.putts.made..hole10.", "X3way.putts.made..hole11.", "X3way.putts.made..hole12.", 
+                 "X3way.putts.made..hole13.", "X3way.putts.made..hole14.", "X3way.putts.made..hole15.", 
+                 "X3way.putts.made..hole16.", "X3way.putts.made..hole17.", "X3way.putts.made..hole18."), names_to = "hole", values_to = "result") %>% 
   mutate(hole = as.integer(gsub("X3way.putts.made..hole", "", hole))) %>% 
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("player3", result)==TRUE, 1, 0))) %>%
@@ -170,9 +163,9 @@ tidyScores <- rbind(tidy1on1_home, tidy1on1_visitor) %>%
   arrange(desc(Timestamp))
 
 individualRounds <- tidyScores %>% 
-group_by(course, player, Timestamp, Game.style, position, Purpose, Outcome) %>% 
-summarise_at(.,vars(putts.made, score), 
-              funs(sum(., na.rm = TRUE))) %>% 
+  group_by(course, player, Timestamp, Game.style, position, Purpose, Outcome) %>% 
+  summarise_at(.,vars(putts.made, score), 
+               funs(sum(., na.rm = TRUE))) %>% 
   mutate(circle2s = score-putts.made) %>% 
   arrange(desc(score)) %>% 
   select(player, score, circle2s, putts.made, everything())
@@ -184,9 +177,9 @@ write_sheet(individualRounds, ss = "https://docs.google.com/spreadsheets/d/1zsM6
 
 
 holeSummary <- tidyScores %>% 
-group_by(course, hole) %>% 
-summarise_at(.,vars(putts.made), 
-              funs(n(), sum(., na.rm = TRUE))) %>%
+  group_by(course, hole) %>% 
+  summarise_at(.,vars(putts.made), 
+               funs(n(), sum(., na.rm = TRUE))) %>%
   mutate(attempts = n, made = sum) %>%
   mutate(madePct =round(100*(made/attempts), 1)) %>% 
   select(course, hole, attempts, made, madePct)
@@ -207,9 +200,9 @@ courseMeanScore <- individualRounds %>%
 playerCourseSummary <- individualRounds %>% 
   left_join(courseMeanScore, by = "course") %>% 
   mutate(gWAR = leagueSD*(score - leagueMean)) %>% 
-group_by(player, course) %>% 
-summarise_at(.,vars(score, putts.made, circle2s), 
-funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
+  group_by(player, course) %>% 
+  summarise_at(.,vars(score, putts.made, circle2s), 
+               funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
   select(player, course, rounds=score_n, score_mean, circle2s_sum, putts.made_sum) %>% 
   arrange(desc(score_mean))
 
@@ -219,9 +212,9 @@ write_sheet(playerCourseSummary, ss = "https://docs.google.com/spreadsheets/d/1z
 puttingWAR <- individualRounds %>% 
   left_join(courseMeanScore, by = "course") %>% 
   mutate(gWAR = leagueSD*(score - leagueMean)) %>% 
-group_by(player, course) %>% 
-summarise_at(.,vars(gWAR), 
-funs(mean(., na.rm = TRUE), n())) %>% 
+  group_by(player, course) %>% 
+  summarise_at(.,vars(gWAR), 
+               funs(mean(., na.rm = TRUE), n())) %>% 
   arrange(desc(mean))
 
 write_sheet(puttingWAR, ss = "https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1VnkurByc9DsmGCzeoomI5AoY/edit#gid=2095346489", sheet = "puttingWAR")
@@ -234,13 +227,3 @@ write_sheet(a, ss = "https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1
 gsraw %>%  write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\putting leaderboard 1.Rmd\\Disc Putting Form Responses 1_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
 
 individualRounds %>%  write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\putting leaderboard 1.Rmd\\individualRounds_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
-```
-
-
-
-## Team scores
-```{r}
-### TEAM rounds
-df.h2h <- gsraw %>% filter(Game.style == "2-on-2")
-```
-
