@@ -166,6 +166,7 @@ individualRounds <- tidyScores %>%
   group_by(course, player, Timestamp, Game.style, position, Purpose, Outcome) %>% 
   summarise_at(.,vars(putts.made, score), 
                funs(sum(., na.rm = TRUE))) %>% 
+  ungroup() %>% 
   mutate(circle2s = score-putts.made) %>% 
   arrange(desc(score)) %>% 
   select(player, score, circle2s, putts.made, everything())
@@ -224,6 +225,9 @@ a <- data.frame(StatsLastUpdated=Sys.time()) %>%  ## GMT +4?
 write_sheet(a, ss = "https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1VnkurByc9DsmGCzeoomI5AoY/edit#gid=2095346489", sheet = "StatsLastUpdated")
 
 #write local copies
-gsraw %>%  write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\putting leaderboard 1.Rmd\\Disc Putting Form Responses 1_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
+gsraw %>%  
+  mutate(Special.Notes = as.character(Special.Notes)) %>% 
+  write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\Disc Putting Form Responses 1_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
 
-individualRounds %>%  write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\putting leaderboard 1.Rmd\\individualRounds_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
+individualRounds %>%  
+  write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\Disc Putting Rounds_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
