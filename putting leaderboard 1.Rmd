@@ -1,25 +1,13 @@
 ---
-title: "putting data"
-output: html_notebook
+title: "Putting Championship Series"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    theme: united
+    toc_float: true
+    df_print: paged
 ---
-
-#outline
-
-* dailyUpdate script for
-    * pulling raw Google Forms data 
-    * wrangle into tidy source data
-* data objects
-    * Google Forms raw response data
-    * tidyPutts: primary source for viz/table displays
-    * individualRounds:  table of individual game data
-
-
-# to do
-> add to tidyPutts:
-    > circle2 (0/1)
-    > game result (W/L/T)
-> rework as needed: individualRounds, holeSummary, # hole difficulty
-
 
 
 
@@ -249,14 +237,14 @@ courseMeanScore <- individualRounds %>%
   mutate(leagueSD = score_sd) %>%
   select(course, leagueMean, leagueSD)
 
-##player summary
-playerCourseSummary <- individualRounds %>% 
+##player stats
+playerStats <- individualRounds %>% 
   left_join(courseMeanScore, by = "course") %>% 
   mutate(gWAR = leagueSD*(score - leagueMean)) %>% 
-  group_by(player, course) %>% 
+  group_by(player) %>% 
   summarise_at(.,vars(score, putts.made, circle2s), 
                funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
-  select(player, course, rounds=score_n, score_mean, circle2s_sum, putts.made_sum) %>% 
+  select(player, rounds=score_n, score_mean, circle2s_sum, putts.made_sum) %>% 
   arrange(desc(score_mean))
 
 
@@ -279,7 +267,7 @@ write_sheet(., ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwt
 
 #write local copies
 gsraw %>%  
-  mutate(Special.Notes = as.character(Special.Notes)) %>% 
+  #mutate(Special.Notes = as.character(Special.Notes)) %>% 
   write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\Disc Putting Form Responses 1_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
 
 individualRounds %>%  
@@ -292,7 +280,7 @@ write_sheet(individualRounds, ss = "https://docs.google.com/spreadsheets/d/13T0Y
 
 write_sheet(holeSummary, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "holeSummary")
 
-write_sheet(playerCourseSummary, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "playerCourseSummary")
+write_sheet(playerStats, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "playerStats")
 
 write_sheet(puttingWAR, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "puttingWAR")
 
@@ -300,35 +288,106 @@ write_sheet(puttingWAR, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqh
 ```
 
 
-# top10 rounds (all-time, according to the data)
-```{r}
-a <- individualRounds %>% 
-  select(course, player, putts.made, circle2s, score, Game.style, Purpose, Outcome, Timestamp) %>% 
-  arrange(desc(score)) %>% 
-  head(10)
+# Player stats
 
-DT::datatable(a, filter = 'top')
+
+## Winning percentage*
+```{r}
+
+WLT %>% 
+  filter(W+L+T > 2) %>%
+  mutate(x = winPct) %>% 
+  arrange(desc(x)) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  select(player, W, L, T, 'Win percentage' = x) %>% 
+  DT::datatable(., filter = 'top')
+
+
+```
+> *minimum 3 games played, includes both 1-on-1 and 3way games.
+
+
+## Average score*
+```{r}
+playerStats %>% 
+  filter(rounds >2) %>% 
+  arrange(desc(score_mean)) %>% 
+  mutate(score_mean = format(round(score_mean, digits = 2), nsmall = 2)) %>% 
+  select(player, rounds, 'Average Score'= score_mean) %>%
+  DT::datatable(., filter = 'top')
+```
+> *minimum 3 rounds
+
+$~$
+
+$~$
+
+## Circle2 percentage
+```{r}
+## player circle2 attempts
+tidyPutts %>% filter(circle2 == 1) %>%
+  group_by(player) %>% 
+  summarise_at(.,vars(score, putts.made), 
+               funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
+  mutate(x = putts.made_mean) %>% 
+  arrange(desc(x), putts.made_n) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  filter(putts.made_n >2) %>% 
+  select(player, 'Circle2 Attempts'=putts.made_n, 'Circle2 Putts Made' = putts.made_sum, 'Circle2 made%'= x) %>% DT::datatable(., filter = 'top')
+```
+> *minimum 3 attempts
+
+$~$
+
+$~$
+
+## Hole dominance
+```{r}
+tidyPutts %>%
+  group_by(course, hole, player) %>%
+  summarise_at(.,vars(putts.made, score), 
+               funs(n(), mean(., na.rm = TRUE), median(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), sum(., na.rm = TRUE))) %>% 
+  mutate(x = putts.made_mean) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  arrange(desc(x)) %>% 
+  select(course, hole, player, 'Attempts' = putts.made_n,  'Made' = putts.made_sum, 'Average' = x) %>% 
+  filter(Attempts > 2) %>% DT::datatable(., filter = 'top')
+
 ```
 
+$~$
 
-# course difficulty
+$~$
+
+$~$
+
+$~$
+
+# Course stats
+
+## Basic course stats
 ```{r}
 a <- individualRounds %>%
   group_by(course) %>%
   summarise_at(.,vars(score, putts.made), 
                funs(n(), mean(., na.rm = TRUE), median(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE))) %>% 
   mutate(totalRounds = score_n) %>% 
-  select(-score_n, -putts.made_n)
+  mutate(x = score_mean) %>% 
+  mutate(x = format(round(x, digits = 2), nsmall = 2)) %>%
+  select(course, totalRounds, 'High Score' = score_max, 'Most Putts Made' =putts.made_max, 'Median Score' = score_median, 'Average Score' = x)
 
 b <- data.frame(t(a))
-names(b) <- b[1,]
-c <- b[-1,] %>% rownames_to_column("statistic") %>% arrange((statistic))
+#b %>%  rownames_to_column("statistic")
 
-DT::datatable(c)
+names(b) <- b[1,]
+
+b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
+
 ```
 
+## Hole difficulty
 
-# hole difficulty
+### Beggars' Knob
 ```{r}
 
 a <- tidyPutts %>% 
@@ -351,22 +410,5 @@ ggplot(a, aes(hole,madePct, fill = course)) + geom_boxplot() + stat_summary(fun.
 ```
 
 
-# Datatable:  all putts ever
-```{r}
-tidyPutts %>% 
-  mutate(Special.Notes = as.character(Special.Notes)) %>% 
-  select(player, course, hole, putts.made, everything()) %>% 
-  DT::datatable(., filter = 'top')
 
-```
-
-
-
-
-
-## Team scores
-```{r}
-### TEAM rounds
-df <- gsraw %>% filter(Game.style == "2-on-2")
-```
 
