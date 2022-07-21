@@ -1,0 +1,159 @@
+---
+title: "Disc Putting Championship Homepage"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    theme: united
+    toc_float: true
+    df_print: paged
+---
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+# Player stats
+
+### Winning percentage*
+```{r}
+
+WLT %>% 
+  filter(W+L+T > 2) %>%
+  mutate(x = winPct) %>% 
+  arrange(desc(x)) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  select(player, W, L, T, 'Win percentage' = x) #%>% DT::datatable(., filter = 'top')
+
+
+```
+> *minimum 3 games played, includes both 1-on-1 and 3way games.
+
+$~$
+
+$~$
+
+### Average score*
+
+```{r}
+playerStats %>% 
+  filter(rounds >2) %>% 
+  arrange(desc(score_mean)) %>% 
+  mutate(score_mean = format(round(score_mean, digits = 2), nsmall = 2)) %>% 
+  select(player, rounds, 'Average Score'= score_mean) # %>%   DT::datatable(., filter = 'top')
+```
+> *minimum 3 rounds
+
+$~$
+
+$~$
+
+### Circle1 percentage*
+```{r}
+## player circle1 attempts
+tidyPutts %>% filter(circle2 == 0) %>%
+  group_by(player) %>% 
+  summarise_at(.,vars(score, putts.made), 
+               funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
+  mutate(x = putts.made_mean) %>% 
+  arrange(desc(x), putts.made_n) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  filter(putts.made_n >9) %>% 
+  select(player, 'Circle1 Attempts'=putts.made_n, 'Circle1 Putts Made' = putts.made_sum, 'Circle1 made%'= x) # %>% DT::datatable(., filter = 'top')
+```
+> *minimum 10 attempts
+
+$~$
+
+$~$
+
+
+### Circle2 percentage*
+
+```{r}
+## player circle2 attempts
+tidyPutts %>% filter(circle2 == 1) %>%
+  group_by(player) %>% 
+  summarise_at(.,vars(score, putts.made), 
+               funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
+  mutate(x = putts.made_mean) %>% 
+  arrange(desc(x), putts.made_n) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  filter(putts.made_n >2) %>% 
+  select(player, 'Circle2 Attempts'=putts.made_n, 'Circle2 Putts Made' = putts.made_sum, 'Circle2 made%'= x) #%>% DT::datatable(., filter = 'top')
+```
+> *minimum 3 attempts
+
+
+$~$
+
+$~$
+
+### Hole dominance*
+
+
+```{r}
+tidyPutts %>%
+  group_by(course, hole, player) %>%
+  summarise_at(.,vars(putts.made, score), 
+               funs(n(), mean(., na.rm = TRUE), median(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), sum(., na.rm = TRUE))) %>% 
+  mutate(x = putts.made_mean) %>% 
+  mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
+  arrange(desc(x)) %>% 
+  select(course, hole, player, 'Attempts' = putts.made_n,  'Made' = putts.made_sum, 'Average' = x) %>% 
+  filter(Attempts > 9) #%>% DT::datatable(., filter = 'top')
+
+```
+
+> *minimum 10 attempts
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+# Course stats
+
+## Course overview
+```{r}
+a <- individualRounds %>%
+  group_by(course) %>%
+  summarise_at(.,vars(score, putts.made), 
+               funs(n(), mean(., na.rm = TRUE), median(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE))) %>% 
+  mutate(totalRounds = score_n) %>% 
+  mutate(x = score_mean) %>% 
+  mutate(x = format(round(x, digits = 2), nsmall = 2)) %>%
+  select(course, totalRounds, 'High Score' = score_max, 'Most Putts Made' =putts.made_max, 'Median Score' = score_median, 'Average Score' = x)
+
+b <- data.frame(t(a))
+#b %>%  rownames_to_column("statistic")
+
+names(b) <- b[1,]
+
+b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
+
+```
+
+$~$
+
+$~$
+
+
+# Contact
+
+Disc Putting Championship - discputtingchampionship@gmail.com
+
+[Player Registration](https://docs.google.com/forms/d/e/1FAIpQLSekk5AX4sNW7q8TWSEnXYJ1fe3KR8XbvAJBWFlKSCbXGHOORw/viewform)
+
+[Scorecard](https://docs.google.com/forms/d/e/1FAIpQLSdZlQnmdbSv2BY1mxqzvmxMnkSR56L9buXUHy6r0ych_hm2vg/viewform)
