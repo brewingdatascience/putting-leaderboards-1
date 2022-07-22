@@ -154,17 +154,7 @@ c <- b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
 knitr::kable(c)
 ```
 
-$~$
 
-$~$
-
-Most recent game in dataset: `r max(tidyPutts$Timestamp)`
-
-$~$
-
-$~$
-
-Stats last updated `r Sys.time()`
 
 
 $~$
@@ -178,3 +168,15 @@ Disc Putting Championship - discputtingchampionship@gmail.com
 [Player Registration](https://docs.google.com/forms/d/e/1FAIpQLSekk5AX4sNW7q8TWSEnXYJ1fe3KR8XbvAJBWFlKSCbXGHOORw/viewform)
 
 [Scorecard](https://docs.google.com/forms/d/e/1FAIpQLSdZlQnmdbSv2BY1mxqzvmxMnkSR56L9buXUHy6r0ych_hm2vg/viewform)
+
+$~$
+
+$~$
+
+Most recent game in dataset: `r max(tidyPutts$Timestamp)`
+
+$~$
+
+$~$
+
+Stats last updated `r Sys.time()`
