@@ -23,6 +23,7 @@ $~$
 
 # Player stats
 
+
 ### Winning percentage*
 ```{r}
 
@@ -48,7 +49,7 @@ a <- playerStats %>%
   filter(rounds >2) %>% 
   arrange(desc(score_mean)) %>% 
   mutate(score_mean = format(round(score_mean, digits = 2), nsmall = 2)) %>% 
-  select(Player = player, 'Average score'= score_mean, Rounds = rounds)%>% head(10) # %>%   DT::datatable(., filter = 'top')
+  select(Player = player, 'Average score'= score_mean, Rounds = rounds) %>% head(10) # %>%   DT::datatable(., filter = 'top')
 
 knitr::kable(a)
 ```
@@ -157,6 +158,18 @@ $~$
 
 $~$
 
+Most recent game in dataset: `r max(tidyPutts$Timestamp)`
+
+$~$
+
+$~$
+
+Stats last updated `r Sys.time()`
+
+
+$~$
+
+$~$
 
 # Contact
 
