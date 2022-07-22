@@ -26,14 +26,14 @@ $~$
 ### Winning percentage*
 ```{r}
 
-WLT %>% 
+a <- WLT %>% 
   filter(W+L+T > 2) %>%
   mutate(x = winPct) %>% 
   arrange(desc(x)) %>% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
-  select(player, W, L, T, 'Win percentage' = x) #%>% DT::datatable(., filter = 'top')
+  select(Player = player, 'Win percentage' = x, W, L, T) %>% head(10) #%>% DT::datatable(., filter = 'top') 
 
-
+knitr::kable(a)
 ```
 > *minimum 3 games played, includes both 1-on-1 and 3way games.
 
@@ -44,11 +44,13 @@ $~$
 ### Average score*
 
 ```{r}
-playerStats %>% 
+a <- playerStats %>% 
   filter(rounds >2) %>% 
   arrange(desc(score_mean)) %>% 
   mutate(score_mean = format(round(score_mean, digits = 2), nsmall = 2)) %>% 
-  select(player, rounds, 'Average Score'= score_mean) # %>%   DT::datatable(., filter = 'top')
+  select(Player = player, 'Average score'= score_mean, Rounds = rounds)%>% head(10) # %>%   DT::datatable(., filter = 'top')
+
+knitr::kable(a)
 ```
 > *minimum 3 rounds
 
@@ -56,10 +58,10 @@ $~$
 
 $~$
 
-### Circle1 percentage*
+### Circle1 leaders*
 ```{r}
 ## player circle1 attempts
-tidyPutts %>% filter(circle2 == 0) %>%
+a <- tidyPutts %>% filter(circle2 == 0) %>%
   group_by(player) %>% 
   summarise_at(.,vars(score, putts.made), 
                funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
@@ -67,7 +69,9 @@ tidyPutts %>% filter(circle2 == 0) %>%
   arrange(desc(x), putts.made_n) %>% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
   filter(putts.made_n >9) %>% 
-  select(player, 'Circle1 Attempts'=putts.made_n, 'Circle1 Putts Made' = putts.made_sum, 'Circle1 made%'= x) # %>% DT::datatable(., filter = 'top')
+  select(Player = player, 'Circle1 average'= x, 'Circle1 attempts'=putts.made_n, 'Circle1 putts made' = putts.made_sum) %>%  head(10) # %>% DT::datatable(., filter = 'top')
+
+knitr::kable(a)
 ```
 > *minimum 10 attempts
 
@@ -76,11 +80,11 @@ $~$
 $~$
 
 
-### Circle2 percentage*
+### Circle2 leaders*
 
 ```{r}
 ## player circle2 attempts
-tidyPutts %>% filter(circle2 == 1) %>%
+a <- tidyPutts %>% filter(circle2 == 1) %>%
   group_by(player) %>% 
   summarise_at(.,vars(score, putts.made), 
                funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %>% 
@@ -88,7 +92,9 @@ tidyPutts %>% filter(circle2 == 1) %>%
   arrange(desc(x), putts.made_n) %>% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
   filter(putts.made_n >2) %>% 
-  select(player, 'Circle2 Attempts'=putts.made_n, 'Circle2 Putts Made' = putts.made_sum, 'Circle2 made%'= x) #%>% DT::datatable(., filter = 'top')
+  select(Player = player, 'Circle2 average'= x, 'Circle2 attempts'=putts.made_n, 'Circle2 putts made' = putts.made_sum) %>%  head(10) #%>% DT::datatable(., filter = 'top')
+
+knitr::kable(a)
 ```
 > *minimum 3 attempts
 
@@ -101,16 +107,17 @@ $~$
 
 
 ```{r}
-tidyPutts %>%
+a <- tidyPutts %>%
   group_by(course, hole, player) %>%
   summarise_at(.,vars(putts.made, score), 
                funs(n(), mean(., na.rm = TRUE), median(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), sum(., na.rm = TRUE))) %>% 
   mutate(x = putts.made_mean) %>% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %>%
   arrange(desc(x)) %>% 
-  select(course, hole, player, 'Attempts' = putts.made_n,  'Made' = putts.made_sum, 'Average' = x) %>% 
-  filter(Attempts > 9) #%>% DT::datatable(., filter = 'top')
+  select(Player = player, 'Hole average' = x, Course = course, Hole =hole, 'Attempts' = putts.made_n,  'Made' = putts.made_sum) %>% 
+  filter(Attempts > 9) %>%  head(10) #%>% DT::datatable(., filter = 'top')
 
+knitr::kable(a)
 ```
 
 > *minimum 10 attempts
@@ -134,15 +141,16 @@ a <- individualRounds %>%
   mutate(totalRounds = score_n) %>% 
   mutate(x = score_mean) %>% 
   mutate(x = format(round(x, digits = 2), nsmall = 2)) %>%
-  select(course, totalRounds, 'High Score' = score_max, 'Most Putts Made' =putts.made_max, 'Median Score' = score_median, 'Average Score' = x)
+  select(course, 'Average Score' = x, 'High Score' = score_max, totalRounds, 'Most Putts Made' =putts.made_max, 'Median Score' = score_median)
 
 b <- data.frame(t(a))
 #b %>%  rownames_to_column("statistic")
 
 names(b) <- b[1,]
 
-b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
+c <- b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
 
+knitr::kable(c)
 ```
 
 $~$

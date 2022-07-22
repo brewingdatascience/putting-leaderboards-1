@@ -2888,17 +2888,97 @@ div.tocify {
 <h1>Player stats</h1>
 <div id="winning-percentage" class="section level3">
 <h3>Winning percentage*</h3>
-<pre class="r"><code>WLT %&gt;% 
+<pre class="r"><code>a &lt;- WLT %&gt;% 
   filter(W+L+T &gt; 2) %&gt;%
   mutate(x = winPct) %&gt;% 
   arrange(desc(x)) %&gt;% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %&gt;%
-  select(player, W, L, T, &#39;Win percentage&#39; = x) #%&gt;% DT::datatable(., filter = &#39;top&#39;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["player"],"name":[1],"type":["chr"],"align":["left"]},{"label":["W"],"name":[2],"type":["int"],"align":["right"]},{"label":["L"],"name":[3],"type":["int"],"align":["right"]},{"label":["T"],"name":[4],"type":["int"],"align":["right"]},{"label":["Win percentage"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"WRITE_INMichael G","2":"3","3":"1","4":"0","5":"0.750"},{"1":"Luke_3","2":"9","3":"5","4":"2","5":"0.562"},{"1":"WRITE_INGarret Kingsbury","2":"3","3":"2","4":"1","5":"0.500"},{"1":"Alex_7","2":"5","3":"3","4":"3","5":"0.455"},{"1":"Turk","2":"5","3":"5","4":"4","5":"0.357"},{"1":"Amrk_23","2":"1","3":"1","4":"1","5":"0.333"},{"1":"WRITE_INSly Simon","2":"1","3":"2","4":"0","5":"0.333"},{"1":"MDub_13","2":"1","3":"3","4":"0","5":"0.250"},{"1":"WRITE_INAllison Baker","2":"0","3":"4","4":"1","5":"0.000"},{"1":"WRITE_INYT Simon","2":"0","3":"3","4":"0","5":"0.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+  select(Player = player, &#39;Win percentage&#39; = x, W, L, T) %&gt;% head(10) #%&gt;% DT::datatable(., filter = &#39;top&#39;) 
+
+knitr::kable(a)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Player</th>
+<th align="left">Win percentage</th>
+<th align="right">W</th>
+<th align="right">L</th>
+<th align="right">T</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">WRITE_INMichael G</td>
+<td align="left">0.750</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Luke_3</td>
+<td align="left">0.562</td>
+<td align="right">9</td>
+<td align="right">5</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INGarret Kingsbury</td>
+<td align="left">0.500</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Alex_7</td>
+<td align="left">0.455</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Turk</td>
+<td align="left">0.357</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Amrk_23</td>
+<td align="left">0.333</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INSly Simon</td>
+<td align="left">0.333</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">MDub_13</td>
+<td align="left">0.250</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INAllison Baker</td>
+<td align="left">0.000</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INYT Simon</td>
+<td align="left">0.000</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>*minimum 3 games played, includes both 1-on-1 and 3way games.</p>
 </blockquote>
@@ -2907,26 +2987,84 @@ div.tocify {
 </div>
 <div id="average-score" class="section level3">
 <h3>Average score*</h3>
-<pre class="r"><code>playerStats %&gt;% 
+<pre class="r"><code>a &lt;- playerStats %&gt;% 
   filter(rounds &gt;2) %&gt;% 
   arrange(desc(score_mean)) %&gt;% 
   mutate(score_mean = format(round(score_mean, digits = 2), nsmall = 2)) %&gt;% 
-  select(player, rounds, &#39;Average Score&#39;= score_mean) # %&gt;%   DT::datatable(., filter = &#39;top&#39;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["player"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rounds"],"name":[2],"type":["int"],"align":["right"]},{"label":["Average Score"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"Amrk_23","2":"5","3":"7.00"},{"1":"Basket Hound_6","2":"3","3":"7.00"},{"1":"Luke_3","2":"18","3":"6.17"},{"1":"Turk","2":"17","3":"5.82"},{"1":"WRITE_INGarret Kingsbury","2":"6","3":"5.50"},{"1":"Alex_7","2":"12","3":"5.17"},{"1":"WRITE_INSly Simon","2":"3","3":"4.33"},{"1":"WRITE_INMichael G","2":"4","3":"4.00"},{"1":"WRITE_INYT Simon","2":"3","3":"3.33"},{"1":"MDub_13","2":"12","3":"2.67"},{"1":"WRITE_INAllison Baker","2":"5","3":"1.20"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+  select(Player = player, &#39;Average score&#39;= score_mean, Rounds = rounds)%&gt;% head(10) # %&gt;%   DT::datatable(., filter = &#39;top&#39;)
+
+knitr::kable(a)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Player</th>
+<th align="left">Average score</th>
+<th align="right">Rounds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Amrk_23</td>
+<td align="left">7.00</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Basket Hound_6</td>
+<td align="left">7.00</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Luke_3</td>
+<td align="left">6.17</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">Turk</td>
+<td align="left">5.82</td>
+<td align="right">17</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INGarret Kingsbury</td>
+<td align="left">5.50</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Alex_7</td>
+<td align="left">5.17</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INSly Simon</td>
+<td align="left">4.33</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INMichael G</td>
+<td align="left">4.00</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INYT Simon</td>
+<td align="left">3.33</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">MDub_13</td>
+<td align="left">2.67</td>
+<td align="right">12</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>*minimum 3 rounds</p>
 </blockquote>
 <p><span class="math inline">\(~\)</span></p>
 <p><span class="math inline">\(~\)</span></p>
 </div>
-<div id="circle1-percentage" class="section level3">
-<h3>Circle1 percentage*</h3>
+<div id="circle1-leaders" class="section level3">
+<h3>Circle1 leaders*</h3>
 <pre class="r"><code>## player circle1 attempts
-tidyPutts %&gt;% filter(circle2 == 0) %&gt;%
+a &lt;- tidyPutts %&gt;% filter(circle2 == 0) %&gt;%
   group_by(player) %&gt;% 
   summarise_at(.,vars(score, putts.made), 
                funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %&gt;% 
@@ -2934,22 +3072,97 @@ tidyPutts %&gt;% filter(circle2 == 0) %&gt;%
   arrange(desc(x), putts.made_n) %&gt;% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %&gt;%
   filter(putts.made_n &gt;9) %&gt;% 
-  select(player, &#39;Circle1 Attempts&#39;=putts.made_n, &#39;Circle1 Putts Made&#39; = putts.made_sum, &#39;Circle1 made%&#39;= x) # %&gt;% DT::datatable(., filter = &#39;top&#39;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["player"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Circle1 Attempts"],"name":[2],"type":["int"],"align":["right"]},{"label":["Circle1 Putts Made"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Circle1 made%"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Basket Hound_6","2":"48","3":"21","4":"0.438"},{"1":"Amrk_23","2":"80","3":"31","4":"0.388"},{"1":"Luke_3","2":"287","3":"103","4":"0.359"},{"1":"Turk","2":"271","3":"97","4":"0.358"},{"1":"WRITE_INAndy Davis","2":"16","3":"5","4":"0.312"},{"1":"WRITE_INSly_1","2":"16","3":"5","4":"0.312"},{"1":"Alex_7","2":"192","3":"58","4":"0.302"},{"1":"WRITE_INGarret Kingsbury","2":"96","3":"27","4":"0.281"},{"1":"WRITE_INSly Simon","2":"48","3":"13","4":"0.271"},{"1":"WRITE_INMichael G","2":"64","3":"16","4":"0.250"},{"1":"kjc_64","2":"16","3":"3","4":"0.188"},{"1":"WRITE_INDavidMaycock","2":"16","3":"3","4":"0.188"},{"1":"WRITE_INYT Simon","2":"48","3":"8","4":"0.167"},{"1":"MDub_13","2":"192","3":"32","4":"0.167"},{"1":"WRITE_INAllison Baker","2":"80","3":"6","4":"0.075"},{"1":"Joe_1","2":"16","3":"1","4":"0.062"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+  select(Player = player, &#39;Circle1 average&#39;= x, &#39;Circle1 attempts&#39;=putts.made_n, &#39;Circle1 putts made&#39; = putts.made_sum) %&gt;%  head(10) # %&gt;% DT::datatable(., filter = &#39;top&#39;)
+
+knitr::kable(a)</code></pre>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="20%" />
+<col width="22%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Player</th>
+<th align="left">Circle1 average</th>
+<th align="right">Circle1 attempts</th>
+<th align="right">Circle1 putts made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Basket Hound_6</td>
+<td align="left">0.438</td>
+<td align="right">48</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="left">Amrk_23</td>
+<td align="left">0.388</td>
+<td align="right">80</td>
+<td align="right">31</td>
+</tr>
+<tr class="odd">
+<td align="left">Luke_3</td>
+<td align="left">0.359</td>
+<td align="right">287</td>
+<td align="right">103</td>
+</tr>
+<tr class="even">
+<td align="left">Turk</td>
+<td align="left">0.358</td>
+<td align="right">271</td>
+<td align="right">97</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INAndy Davis</td>
+<td align="left">0.312</td>
+<td align="right">16</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INSly_1</td>
+<td align="left">0.312</td>
+<td align="right">16</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Alex_7</td>
+<td align="left">0.302</td>
+<td align="right">192</td>
+<td align="right">58</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INGarret Kingsbury</td>
+<td align="left">0.281</td>
+<td align="right">96</td>
+<td align="right">27</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INSly Simon</td>
+<td align="left">0.271</td>
+<td align="right">48</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INMichael G</td>
+<td align="left">0.250</td>
+<td align="right">64</td>
+<td align="right">16</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>*minimum 10 attempts</p>
 </blockquote>
 <p><span class="math inline">\(~\)</span></p>
 <p><span class="math inline">\(~\)</span></p>
 </div>
-<div id="circle2-percentage" class="section level3">
-<h3>Circle2 percentage*</h3>
+<div id="circle2-leaders" class="section level3">
+<h3>Circle2 leaders*</h3>
 <pre class="r"><code>## player circle2 attempts
-tidyPutts %&gt;% filter(circle2 == 1) %&gt;%
+a &lt;- tidyPutts %&gt;% filter(circle2 == 1) %&gt;%
   group_by(player) %&gt;% 
   summarise_at(.,vars(score, putts.made), 
                funs(sd(., na.rm = TRUE),mean(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), median(., na.rm = TRUE), sum(., na.rm = TRUE), n())) %&gt;% 
@@ -2957,12 +3170,87 @@ tidyPutts %&gt;% filter(circle2 == 1) %&gt;%
   arrange(desc(x), putts.made_n) %&gt;% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %&gt;%
   filter(putts.made_n &gt;2) %&gt;% 
-  select(player, &#39;Circle2 Attempts&#39;=putts.made_n, &#39;Circle2 Putts Made&#39; = putts.made_sum, &#39;Circle2 made%&#39;= x) #%&gt;% DT::datatable(., filter = &#39;top&#39;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["player"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Circle2 Attempts"],"name":[2],"type":["int"],"align":["right"]},{"label":["Circle2 Putts Made"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Circle2 made%"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"WRITE_INGarret Kingsbury","2":"12","3":"3","4":"0.250"},{"1":"Amrk_23","2":"10","3":"2","4":"0.200"},{"1":"WRITE_INYT Simon","2":"6","3":"1","4":"0.167"},{"1":"Luke_3","2":"37","3":"4","4":"0.108"},{"1":"Alex_7","2":"24","3":"2","4":"0.083"},{"1":"Turk","2":"35","3":"1","4":"0.029"},{"1":"Basket Hound_6","2":"6","3":"0","4":"0.000"},{"1":"WRITE_INSly Simon","2":"6","3":"0","4":"0.000"},{"1":"WRITE_INMichael G","2":"8","3":"0","4":"0.000"},{"1":"WRITE_INAllison Baker","2":"10","3":"0","4":"0.000"},{"1":"MDub_13","2":"24","3":"0","4":"0.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+  select(Player = player, &#39;Circle2 average&#39;= x, &#39;Circle2 attempts&#39;=putts.made_n, &#39;Circle2 putts made&#39; = putts.made_sum) %&gt;%  head(10) #%&gt;% DT::datatable(., filter = &#39;top&#39;)
+
+knitr::kable(a)</code></pre>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="20%" />
+<col width="22%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Player</th>
+<th align="left">Circle2 average</th>
+<th align="right">Circle2 attempts</th>
+<th align="right">Circle2 putts made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">WRITE_INGarret Kingsbury</td>
+<td align="left">0.250</td>
+<td align="right">12</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Amrk_23</td>
+<td align="left">0.200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INYT Simon</td>
+<td align="left">0.167</td>
+<td align="right">6</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Luke_3</td>
+<td align="left">0.108</td>
+<td align="right">37</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Alex_7</td>
+<td align="left">0.083</td>
+<td align="right">24</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Turk</td>
+<td align="left">0.029</td>
+<td align="right">35</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Basket Hound_6</td>
+<td align="left">0.000</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INSly Simon</td>
+<td align="left">0.000</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">WRITE_INMichael G</td>
+<td align="left">0.000</td>
+<td align="right">8</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">WRITE_INAllison Baker</td>
+<td align="left">0.000</td>
+<td align="right">10</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>*minimum 3 attempts</p>
 </blockquote>
@@ -2971,20 +3259,111 @@ tidyPutts %&gt;% filter(circle2 == 1) %&gt;%
 </div>
 <div id="hole-dominance" class="section level3">
 <h3>Hole dominance*</h3>
-<pre class="r"><code>tidyPutts %&gt;%
+<pre class="r"><code>a &lt;- tidyPutts %&gt;%
   group_by(course, hole, player) %&gt;%
   summarise_at(.,vars(putts.made, score), 
                funs(n(), mean(., na.rm = TRUE), median(., na.rm = TRUE), min(., na.rm = TRUE), max(., na.rm = TRUE), sum(., na.rm = TRUE))) %&gt;% 
   mutate(x = putts.made_mean) %&gt;% 
   mutate(x = format(round(x, digits = 3), nsmall = 3)) %&gt;%
   arrange(desc(x)) %&gt;% 
-  select(course, hole, player, &#39;Attempts&#39; = putts.made_n,  &#39;Made&#39; = putts.made_sum, &#39;Average&#39; = x) %&gt;% 
-  filter(Attempts &gt; 9) #%&gt;% DT::datatable(., filter = &#39;top&#39;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["course"],"name":[1],"type":["chr"],"align":["left"]},{"label":["hole"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["player"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Attempts"],"name":[4],"type":["int"],"align":["right"]},{"label":["Made"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Average"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"Beggars' Knob","2":"15","3":"Alex_7","4":"12","5":"10","6":"0.833"},{"1":"Beggars' Knob","2":"15","3":"Luke_3","4":"17","5":"14","6":"0.824"},{"1":"Beggars' Knob","2":"18","3":"Alex_7","4":"12","5":"8","6":"0.667"},{"1":"Beggars' Knob","2":"11","3":"Luke_3","4":"17","5":"11","6":"0.647"},{"1":"Beggars' Knob","2":"4","3":"Turk","4":"16","5":"9","6":"0.562"},{"1":"Beggars' Knob","2":"15","3":"Turk","4":"16","5":"9","6":"0.562"},{"1":"Beggars' Knob","2":"1","3":"Turk","4":"16","5":"8","6":"0.500"},{"1":"Beggars' Knob","2":"10","3":"Turk","4":"16","5":"8","6":"0.500"},{"1":"Beggars' Knob","2":"18","3":"MDub_13","4":"12","5":"6","6":"0.500"},{"1":"Beggars' Knob","2":"18","3":"Turk","4":"16","5":"8","6":"0.500"},{"1":"Beggars' Knob","2":"1","3":"Luke_3","4":"17","5":"8","6":"0.471"},{"1":"Beggars' Knob","2":"2","3":"Alex_7","4":"12","5":"5","6":"0.417"},{"1":"Beggars' Knob","2":"4","3":"Alex_7","4":"12","5":"5","6":"0.417"},{"1":"Beggars' Knob","2":"5","3":"Alex_7","4":"12","5":"5","6":"0.417"},{"1":"Beggars' Knob","2":"5","3":"Luke_3","4":"17","5":"7","6":"0.412"},{"1":"Beggars' Knob","2":"10","3":"Luke_3","4":"17","5":"7","6":"0.412"},{"1":"Beggars' Knob","2":"18","3":"Luke_3","4":"17","5":"7","6":"0.412"},{"1":"Beggars' Knob","2":"5","3":"Turk","4":"16","5":"6","6":"0.375"},{"1":"Beggars' Knob","2":"6","3":"Turk","4":"16","5":"6","6":"0.375"},{"1":"Beggars' Knob","2":"9","3":"Turk","4":"16","5":"6","6":"0.375"},{"1":"Beggars' Knob","2":"11","3":"Turk","4":"16","5":"6","6":"0.375"},{"1":"Beggars' Knob","2":"7","3":"Luke_3","4":"17","5":"6","6":"0.353"},{"1":"Beggars' Knob","2":"8","3":"Luke_3","4":"17","5":"6","6":"0.353"},{"1":"Beggars' Knob","2":"13","3":"Luke_3","4":"17","5":"6","6":"0.353"},{"1":"Beggars' Knob","2":"1","3":"Alex_7","4":"12","5":"4","6":"0.333"},{"1":"Beggars' Knob","2":"11","3":"Alex_7","4":"12","5":"4","6":"0.333"},{"1":"Beggars' Knob","2":"15","3":"MDub_13","4":"12","5":"4","6":"0.333"},{"1":"Beggars' Knob","2":"8","3":"Turk","4":"16","5":"5","6":"0.312"},{"1":"Beggars' Knob","2":"9","3":"Luke_3","4":"17","5":"5","6":"0.294"},{"1":"Beggars' Knob","2":"12","3":"Luke_3","4":"17","5":"5","6":"0.294"},{"1":"Beggars' Knob","2":"2","3":"MDub_13","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"2","3":"Turk","4":"16","5":"4","6":"0.250"},{"1":"Beggars' Knob","2":"4","3":"MDub_13","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"7","3":"Alex_7","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"7","3":"MDub_13","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"7","3":"Turk","4":"16","5":"4","6":"0.250"},{"1":"Beggars' Knob","2":"10","3":"Alex_7","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"12","3":"Turk","4":"16","5":"4","6":"0.250"},{"1":"Beggars' Knob","2":"13","3":"Alex_7","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"13","3":"MDub_13","4":"12","5":"3","6":"0.250"},{"1":"Beggars' Knob","2":"14","3":"Turk","4":"16","5":"4","6":"0.250"},{"1":"Beggars' Knob","2":"13","3":"Turk","4":"16","5":"3","6":"0.188"},{"1":"Beggars' Knob","2":"4","3":"Luke_3","4":"17","5":"3","6":"0.176"},{"1":"Beggars' Knob","2":"6","3":"Luke_3","4":"17","5":"3","6":"0.176"},{"1":"Beggars' Knob","2":"14","3":"Luke_3","4":"17","5":"3","6":"0.176"},{"1":"Beggars' Knob","2":"5","3":"MDub_13","4":"12","5":"2","6":"0.167"},{"1":"Beggars' Knob","2":"9","3":"Alex_7","4":"12","5":"2","6":"0.167"},{"1":"Beggars' Knob","2":"12","3":"Alex_7","4":"12","5":"2","6":"0.167"},{"1":"Beggars' Knob","2":"12","3":"MDub_13","4":"12","5":"2","6":"0.167"},{"1":"Beggars' Knob","2":"16","3":"Alex_7","4":"12","5":"2","6":"0.167"},{"1":"Beggars' Knob","2":"17","3":"Alex_7","4":"12","5":"2","6":"0.167"},{"1":"Beggars' Knob","2":"16","3":"Turk","4":"16","5":"2","6":"0.125"},{"1":"Beggars' Knob","2":"2","3":"Luke_3","4":"17","5":"2","6":"0.118"},{"1":"Beggars' Knob","2":"3","3":"Luke_3","4":"17","5":"2","6":"0.118"},{"1":"Beggars' Knob","2":"17","3":"Luke_3","4":"17","5":"2","6":"0.118"},{"1":"Beggars' Knob","2":"1","3":"MDub_13","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"6","3":"Alex_7","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"6","3":"MDub_13","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"9","3":"MDub_13","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"11","3":"MDub_13","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"14","3":"Alex_7","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"14","3":"MDub_13","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"16","3":"MDub_13","4":"12","5":"1","6":"0.083"},{"1":"Beggars' Knob","2":"3","3":"Turk","4":"16","5":"1","6":"0.062"},{"1":"Beggars' Knob","2":"16","3":"Luke_3","4":"17","5":"1","6":"0.059"},{"1":"Beggars' Knob","2":"3","3":"Alex_7","4":"12","5":"0","6":"0.000"},{"1":"Beggars' Knob","2":"3","3":"MDub_13","4":"12","5":"0","6":"0.000"},{"1":"Beggars' Knob","2":"8","3":"Alex_7","4":"12","5":"0","6":"0.000"},{"1":"Beggars' Knob","2":"8","3":"MDub_13","4":"12","5":"0","6":"0.000"},{"1":"Beggars' Knob","2":"10","3":"MDub_13","4":"12","5":"0","6":"0.000"},{"1":"Beggars' Knob","2":"17","3":"MDub_13","4":"12","5":"0","6":"0.000"},{"1":"Beggars' Knob","2":"17","3":"Turk","4":"16","5":"0","6":"0.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+  select(Player = player, &#39;Hole average&#39; = x, Course = course, Hole =hole, &#39;Attempts&#39; = putts.made_n,  &#39;Made&#39; = putts.made_sum) %&gt;% 
+  filter(Attempts &gt; 9) %&gt;%  head(10) #%&gt;% DT::datatable(., filter = &#39;top&#39;)
+
+knitr::kable(a)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Player</th>
+<th align="left">Hole average</th>
+<th align="left">Course</th>
+<th align="right">Hole</th>
+<th align="right">Attempts</th>
+<th align="right">Made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alex_7</td>
+<td align="left">0.833</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">15</td>
+<td align="right">12</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">Luke_3</td>
+<td align="left">0.824</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">15</td>
+<td align="right">17</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">Alex_7</td>
+<td align="left">0.667</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">18</td>
+<td align="right">12</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Luke_3</td>
+<td align="left">0.647</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">11</td>
+<td align="right">17</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">Turk</td>
+<td align="left">0.562</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">4</td>
+<td align="right">16</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Turk</td>
+<td align="left">0.562</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">15</td>
+<td align="right">16</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">Turk</td>
+<td align="left">0.500</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">1</td>
+<td align="right">16</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Turk</td>
+<td align="left">0.500</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">10</td>
+<td align="right">16</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">MDub_13</td>
+<td align="left">0.500</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">18</td>
+<td align="right">12</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Turk</td>
+<td align="left">0.500</td>
+<td align="left">Beggars’ Knob</td>
+<td align="right">18</td>
+<td align="right">16</td>
+<td align="right">8</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>*minimum 10 attempts</p>
 </blockquote>
@@ -3005,19 +3384,52 @@ tidyPutts %&gt;% filter(circle2 == 1) %&gt;%
   mutate(totalRounds = score_n) %&gt;% 
   mutate(x = score_mean) %&gt;% 
   mutate(x = format(round(x, digits = 2), nsmall = 2)) %&gt;%
-  select(course, totalRounds, &#39;High Score&#39; = score_max, &#39;Most Putts Made&#39; =putts.made_max, &#39;Median Score&#39; = score_median, &#39;Average Score&#39; = x)
+  select(course, &#39;Average Score&#39; = x, &#39;High Score&#39; = score_max, totalRounds, &#39;Most Putts Made&#39; =putts.made_max, &#39;Median Score&#39; = score_median)
 
 b &lt;- data.frame(t(a))
 #b %&gt;%  rownames_to_column(&quot;statistic&quot;)
 
 names(b) &lt;- b[1,]
 
-b[-1,] %&gt;% rownames_to_column(&quot;statistic&quot;) #%&gt;% arrange((statistic))</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["statistic"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Beggars' Knob"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Prospector's Ridge"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"totalRounds","2":"91","3":"2"},{"1":"High Score","2":"10","3":"9"},{"1":"Most Putts Made","2":"9","3":"9"},{"1":"Median Score","2":"5","3":"7"},{"1":"Average Score","2":"4.87","3":"7.00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+c &lt;- b[-1,] %&gt;% rownames_to_column(&quot;statistic&quot;) #%&gt;% arrange((statistic))
+
+knitr::kable(c)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">statistic</th>
+<th align="left">Beggars’ Knob</th>
+<th align="left">Prospector’s Ridge</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Average Score</td>
+<td align="left">4.87</td>
+<td align="left">7.00</td>
+</tr>
+<tr class="even">
+<td align="left">High Score</td>
+<td align="left">10</td>
+<td align="left">9</td>
+</tr>
+<tr class="odd">
+<td align="left">totalRounds</td>
+<td align="left">91</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Most Putts Made</td>
+<td align="left">9</td>
+<td align="left">9</td>
+</tr>
+<tr class="odd">
+<td align="left">Median Score</td>
+<td align="left">5</td>
+<td align="left">7</td>
+</tr>
+</tbody>
+</table>
 <p><span class="math inline">\(~\)</span></p>
 <p><span class="math inline">\(~\)</span></p>
 </div>
