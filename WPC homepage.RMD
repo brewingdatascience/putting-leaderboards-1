@@ -21,7 +21,7 @@ $~$
     * To play well is to live well.
 
 * Why collect or analyze disc putting data?
-    * This is a demonstration of reproducible research and transparency in the process of tabulating statistics from raw game data. Each approved putting course is a set of 18 well-defined shots, typically comprised of three circle2 putts and 15 circle1 putts. With unlimited numbers of players putting the exact same holes -and using the same [data entry form](https://docs.google.com/forms/d/e/1FAIpQLSdZlQnmdbSv2BY1mxqzvmxMnkSR56L9buXUHy6r0ych_hm2vg/viewform)- high-quality data and patterns emerge, providing unique insights into disc putting.  
+    * This is a demonstration of reproducible research and transparency in the process of tabulating statistics from raw game data. Each approved putting course is a set of 18 well-defined shots, typically comprised of three circle2 putts and 15 circle1 putts. With unlimited numbers of players putting the exact same shots, patterns emerge that provide unique insights into disc putting.  
 
 
 $~$
@@ -320,7 +320,7 @@ a <- WLT %>%
   arrange(desc(winPct)) %>% 
   select(Player = player, winPct, W, L, T) %>% head(10) #%>% DT::datatable(., filter = 'top') 
 
-knitr::kable(a)
+knitr::kable(a, align=c('l', 'c', 'c', 'c', 'c'))
 ```
 > *minimum 3 games played, includes both 1-on-1 and 3way games.
 
@@ -339,7 +339,7 @@ a <- player_meanScore  %>%
   head(10) %>% 
     select(Player = player, 'Average score'= score_mean, Rounds = rounds) 
 
-knitr::kable(a)
+knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 > *minimum 3 rounds
 
@@ -353,9 +353,9 @@ $~$
 a <- player_circle1 %>% 
   filter(circle1attempts >9) %>% 
   head(10) %>% 
-  select(Player = player, 'Circle1 average'= circle1mean, 'Circle1 attempts'=circle1attempts, 'Circle1 putts made' = circle1made) 
+  select(Player = player, Circle1pct= circle1mean, Attempts=circle1attempts, Made = circle1made) 
 
-knitr::kable(a)
+knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 > *minimum 10 attempts
 
@@ -371,9 +371,9 @@ $~$
 a <- player_circle2 %>% 
    filter(circle2attempts >2)  %>%  
   head(10) %>% 
-  select(Player = player, 'Circle2 average'= circle2mean, 'Circle2 attempts'=circle2attempts, 'Circle2 putts made' = circle2made)
+  select(Player = player, Circle2pct= circle2mean, Attempts = circle2attempts, Made = circle2made)
 
-knitr::kable(a)
+knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 > *minimum 3 attempts
 
@@ -382,7 +382,7 @@ $~$
 
 $~$
 
-### Hole dominance*
+### Top shots*
 Top 10 averages among all players on all holes.
 
 ```{r}
@@ -395,12 +395,12 @@ playerHoleSummary <- tidyPutts %>%
   arrange(desc(x)) %>% 
   mutate(Hole = paste0(course, " - hole ", hole)) %>% 
   ungroup() %>% 
-  select(Player = player, 'Hole average' = x, Hole, 'Attempts' = putts.made_n,  'Made' = putts.made_sum) 
+  select(Player = player, puttPct = x, Hole, Attempts = putts.made_n,  Made = putts.made_sum) 
 
 a <- playerHoleSummary %>% 
   filter(Attempts > 9) %>%  head(10)
   
-knitr::kable(a)
+knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 
 > *minimum 10 attempts
@@ -412,7 +412,10 @@ $~$
 
 ### Sortable stats
 ```{r}
-playerStats %>% DT::datatable(., filter = 'top')
+playerStats %>% DT::datatable(., filter = 'top', 
+          rownames = FALSE,
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = 1:17)))) ## note that column numbers start from 0, not from 1.
 ```
 
 
@@ -436,16 +439,20 @@ a <- individualRounds %>%
   mutate(totalRounds = score_n) %>% 
   mutate(x = score_mean) %>% 
   mutate(x = format(round(x, digits = 2), nsmall = 2)) %>%
-  select(course, 'Average Score' = x, 'High Score' = score_max, totalRounds, 'Most Putts Made' =putts.made_max, 'Median Score' = score_median)
+  select(course, 'Average Score' = x, 'High Score' = score_max, 'Most Putts Made' =putts.made_max, 'Total Rounds' = totalRounds)
 
 b <- data.frame(t(a))
 #b %>%  rownames_to_column("statistic")
 
 names(b) <- b[1,]
 
+
+
 c <- b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
 
-knitr::kable(c)
+names(c) <- paste0("___", names(c), "___")
+
+knitr::kable(c, align=c('r', 'c', 'c', 'c'))
 ```
 
 
@@ -460,9 +467,17 @@ $~$
 
 Disc Putting Championship - discputtingchampionship@gmail.com
 
-[Player Registration](https://docs.google.com/forms/d/e/1FAIpQLSekk5AX4sNW7q8TWSEnXYJ1fe3KR8XbvAJBWFlKSCbXGHOORw/viewform)
 
-[Course Registration](https://docs.google.com/forms/d/e/1FAIpQLSfcKdf9TDGmvH833hY7VjvGoKKUQCgsLKIQF-A2UbsIelfTSA/viewform?usp=sf_link)
+
+$~$
+
+$~$
+
+# Register
+
+#### [Player Registration](https://docs.google.com/forms/d/e/1FAIpQLSekk5AX4sNW7q8TWSEnXYJ1fe3KR8XbvAJBWFlKSCbXGHOORw/viewform)
+
+#### [Course Registration](https://docs.google.com/forms/d/e/1FAIpQLSfcKdf9TDGmvH833hY7VjvGoKKUQCgsLKIQF-A2UbsIelfTSA/viewform)
 
 $~$
 

@@ -5836,9 +5836,8 @@ activities in the US and many other countries.</li>
 the process of tabulating statistics from raw game data. Each approved
 putting course is a set of 18 well-defined shots, typically comprised of
 three circle2 putts and 15 circle1 putts. With unlimited numbers of
-players putting the exact same holes -and using the same <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZlQnmdbSv2BY1mxqzvmxMnkSR56L9buXUHy6r0ych_hm2vg/viewform">data
-entry form</a>- high-quality data and patterns emerge, providing unique
-insights into disc putting.</li>
+players putting the exact same shots, patterns emerge that provide
+unique insights into disc putting.</li>
 </ul></li>
 </ul>
 <p><span class="math inline">\(~\)</span></p>
@@ -6129,87 +6128,87 @@ playerStats &lt;- WLT %&gt;%
   arrange(desc(winPct)) %&gt;% 
   select(Player = player, winPct, W, L, T) %&gt;% head(10) #%&gt;% DT::datatable(., filter = &#39;top&#39;) 
 
-knitr::kable(a)</code></pre>
+knitr::kable(a, align=c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;))</code></pre>
 <table>
 <thead>
 <tr class="header">
 <th align="left">Player</th>
-<th align="left">winPct</th>
-<th align="right">W</th>
-<th align="right">L</th>
-<th align="right">T</th>
+<th align="center">winPct</th>
+<th align="center">W</th>
+<th align="center">L</th>
+<th align="center">T</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">WRITE_INMichael G</td>
-<td align="left">0.750</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">0</td>
+<td align="center">0.750</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="left">Luke_3</td>
-<td align="left">0.500</td>
-<td align="right">10</td>
-<td align="right">6</td>
-<td align="right">4</td>
+<td align="center">0.500</td>
+<td align="center">10</td>
+<td align="center">6</td>
+<td align="center">4</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INGarret Kingsbury</td>
-<td align="left">0.500</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">1</td>
+<td align="center">0.500</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
 <td align="left">Alex_7</td>
-<td align="left">0.455</td>
-<td align="right">5</td>
-<td align="right">3</td>
-<td align="right">3</td>
+<td align="center">0.455</td>
+<td align="center">5</td>
+<td align="center">3</td>
+<td align="center">3</td>
 </tr>
 <tr class="odd">
 <td align="left">Turk</td>
-<td align="left">0.333</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">6</td>
+<td align="center">0.333</td>
+<td align="center">6</td>
+<td align="center">6</td>
+<td align="center">6</td>
 </tr>
 <tr class="even">
 <td align="left">Amrk_23</td>
-<td align="left">0.333</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="center">0.333</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INSly Simon</td>
-<td align="left">0.333</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<td align="center">0.333</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="left">MDub_13</td>
-<td align="left">0.250</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
+<td align="center">0.250</td>
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INAllison Baker</td>
-<td align="left">0.000</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">1</td>
+<td align="center">0.000</td>
+<td align="center">0</td>
+<td align="center">4</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INYT Simon</td>
-<td align="left">0.000</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">0</td>
+<td align="center">0.000</td>
+<td align="center">0</td>
+<td align="center">3</td>
+<td align="center">0</td>
 </tr>
 </tbody>
 </table>
@@ -6228,65 +6227,65 @@ a &lt;- player_meanScore  %&gt;%
   head(10) %&gt;% 
     select(Player = player, &#39;Average score&#39;= score_mean, Rounds = rounds) 
 
-knitr::kable(a)</code></pre>
+knitr::kable(a, align=c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;))</code></pre>
 <table>
 <thead>
 <tr class="header">
 <th align="left">Player</th>
-<th align="left">Average score</th>
-<th align="right">Rounds</th>
+<th align="center">Average score</th>
+<th align="center">Rounds</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Basket Hound_6</td>
-<td align="left">7.00</td>
-<td align="right">3</td>
+<td align="center">7.00</td>
+<td align="center">3</td>
 </tr>
 <tr class="even">
 <td align="left">Amrk_23</td>
-<td align="left">7.00</td>
-<td align="right">5</td>
+<td align="center">7.00</td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Luke_3</td>
-<td align="left">6.23</td>
-<td align="right">22</td>
+<td align="center">6.23</td>
+<td align="center">22</td>
 </tr>
 <tr class="even">
 <td align="left">Turk</td>
-<td align="left">5.95</td>
-<td align="right">21</td>
+<td align="center">5.95</td>
+<td align="center">21</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INGarret Kingsbury</td>
-<td align="left">5.50</td>
-<td align="right">6</td>
+<td align="center">5.50</td>
+<td align="center">6</td>
 </tr>
 <tr class="even">
 <td align="left">Alex_7</td>
-<td align="left">5.17</td>
-<td align="right">12</td>
+<td align="center">5.17</td>
+<td align="center">12</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INSly Simon</td>
-<td align="left">4.33</td>
-<td align="right">3</td>
+<td align="center">4.33</td>
+<td align="center">3</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INMichael G</td>
-<td align="left">4.00</td>
-<td align="right">4</td>
+<td align="center">4.00</td>
+<td align="center">4</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INYT Simon</td>
-<td align="left">3.33</td>
-<td align="right">3</td>
+<td align="center">3.33</td>
+<td align="center">3</td>
 </tr>
 <tr class="even">
 <td align="left">MDub_13</td>
-<td align="left">2.67</td>
-<td align="right">12</td>
+<td align="center">2.67</td>
+<td align="center">12</td>
 </tr>
 </tbody>
 </table>
@@ -6301,84 +6300,78 @@ knitr::kable(a)</code></pre>
 <pre class="r"><code>a &lt;- player_circle1 %&gt;% 
   filter(circle1attempts &gt;9) %&gt;% 
   head(10) %&gt;% 
-  select(Player = player, &#39;Circle1 average&#39;= circle1mean, &#39;Circle1 attempts&#39;=circle1attempts, &#39;Circle1 putts made&#39; = circle1made) 
+  select(Player = player, Circle1pct= circle1mean, Attempts=circle1attempts, Made = circle1made) 
 
-knitr::kable(a)</code></pre>
+knitr::kable(a, align=c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;))</code></pre>
 <table>
-<colgroup>
-<col width="32%" />
-<col width="20%" />
-<col width="22%" />
-<col width="24%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Player</th>
-<th align="left">Circle1 average</th>
-<th align="right">Circle1 attempts</th>
-<th align="right">Circle1 putts made</th>
+<th align="center">Circle1pct</th>
+<th align="center">Attempts</th>
+<th align="center">Made</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Basket Hound_6</td>
-<td align="left">0.438</td>
-<td align="right">48</td>
-<td align="right">21</td>
+<td align="center">0.438</td>
+<td align="center">48</td>
+<td align="center">21</td>
 </tr>
 <tr class="even">
 <td align="left">Amrk_23</td>
-<td align="left">0.388</td>
-<td align="right">80</td>
-<td align="right">31</td>
+<td align="center">0.388</td>
+<td align="center">80</td>
+<td align="center">31</td>
 </tr>
 <tr class="odd">
 <td align="left">Luke_3</td>
-<td align="left">0.372</td>
-<td align="right">347</td>
-<td align="right">129</td>
+<td align="center">0.372</td>
+<td align="center">347</td>
+<td align="center">129</td>
 </tr>
 <tr class="even">
 <td align="left">Turk</td>
-<td align="left">0.347</td>
-<td align="right">331</td>
-<td align="right">115</td>
+<td align="center">0.347</td>
+<td align="center">331</td>
+<td align="center">115</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INAndy Davis</td>
-<td align="left">0.312</td>
-<td align="right">16</td>
-<td align="right">5</td>
+<td align="center">0.312</td>
+<td align="center">16</td>
+<td align="center">5</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INSly_1</td>
-<td align="left">0.312</td>
-<td align="right">16</td>
-<td align="right">5</td>
+<td align="center">0.312</td>
+<td align="center">16</td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Alex_7</td>
-<td align="left">0.302</td>
-<td align="right">192</td>
-<td align="right">58</td>
+<td align="center">0.302</td>
+<td align="center">192</td>
+<td align="center">58</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INGarret Kingsbury</td>
-<td align="left">0.281</td>
-<td align="right">96</td>
-<td align="right">27</td>
+<td align="center">0.281</td>
+<td align="center">96</td>
+<td align="center">27</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INSly Simon</td>
-<td align="left">0.271</td>
-<td align="right">48</td>
-<td align="right">13</td>
+<td align="center">0.271</td>
+<td align="center">48</td>
+<td align="center">13</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INMichael G</td>
-<td align="left">0.250</td>
-<td align="right">64</td>
-<td align="right">16</td>
+<td align="center">0.250</td>
+<td align="center">64</td>
+<td align="center">16</td>
 </tr>
 </tbody>
 </table>
@@ -6393,84 +6386,78 @@ knitr::kable(a)</code></pre>
 <pre class="r"><code>a &lt;- player_circle2 %&gt;% 
    filter(circle2attempts &gt;2)  %&gt;%  
   head(10) %&gt;% 
-  select(Player = player, &#39;Circle2 average&#39;= circle2mean, &#39;Circle2 attempts&#39;=circle2attempts, &#39;Circle2 putts made&#39; = circle2made)
+  select(Player = player, Circle2pct= circle2mean, Attempts = circle2attempts, Made = circle2made)
 
-knitr::kable(a)</code></pre>
+knitr::kable(a, align=c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;))</code></pre>
 <table>
-<colgroup>
-<col width="32%" />
-<col width="20%" />
-<col width="22%" />
-<col width="24%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Player</th>
-<th align="left">Circle2 average</th>
-<th align="right">Circle2 attempts</th>
-<th align="right">Circle2 putts made</th>
+<th align="center">Circle2pct</th>
+<th align="center">Attempts</th>
+<th align="center">Made</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">WRITE_INGarret Kingsbury</td>
-<td align="left">0.250</td>
-<td align="right">12</td>
-<td align="right">3</td>
+<td align="center">0.250</td>
+<td align="center">12</td>
+<td align="center">3</td>
 </tr>
 <tr class="even">
 <td align="left">Amrk_23</td>
-<td align="left">0.200</td>
-<td align="right">10</td>
-<td align="right">2</td>
+<td align="center">0.200</td>
+<td align="center">10</td>
+<td align="center">2</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INYT Simon</td>
-<td align="left">0.167</td>
-<td align="right">6</td>
-<td align="right">1</td>
+<td align="center">0.167</td>
+<td align="center">6</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
 <td align="left">Turk</td>
-<td align="left">0.106</td>
-<td align="right">47</td>
-<td align="right">5</td>
+<td align="center">0.106</td>
+<td align="center">47</td>
+<td align="center">5</td>
 </tr>
 <tr class="odd">
 <td align="left">Alex_7</td>
-<td align="left">0.083</td>
-<td align="right">24</td>
-<td align="right">2</td>
+<td align="center">0.083</td>
+<td align="center">24</td>
+<td align="center">2</td>
 </tr>
 <tr class="even">
 <td align="left">Luke_3</td>
-<td align="left">0.082</td>
-<td align="right">49</td>
-<td align="right">4</td>
+<td align="center">0.082</td>
+<td align="center">49</td>
+<td align="center">4</td>
 </tr>
 <tr class="odd">
 <td align="left">Basket Hound_6</td>
-<td align="left">0.000</td>
-<td align="right">6</td>
-<td align="right">0</td>
+<td align="center">0.000</td>
+<td align="center">6</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INSly Simon</td>
-<td align="left">0.000</td>
-<td align="right">6</td>
-<td align="right">0</td>
+<td align="center">0.000</td>
+<td align="center">6</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="left">WRITE_INMichael G</td>
-<td align="left">0.000</td>
-<td align="right">8</td>
-<td align="right">0</td>
+<td align="center">0.000</td>
+<td align="center">8</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="left">WRITE_INAllison Baker</td>
-<td align="left">0.000</td>
-<td align="right">10</td>
-<td align="right">0</td>
+<td align="center">0.000</td>
+<td align="center">10</td>
+<td align="center">0</td>
 </tr>
 </tbody>
 </table>
@@ -6480,8 +6467,8 @@ knitr::kable(a)</code></pre>
 <p><span class="math inline">\(~\)</span></p>
 <p><span class="math inline">\(~\)</span></p>
 </div>
-<div id="hole-dominance" class="section level3">
-<h3>Hole dominance*</h3>
+<div id="top-shots" class="section level3">
+<h3>Top shots*</h3>
 <p>Top 10 averages among all players on all holes.</p>
 <pre class="r"><code>playerHoleSummary &lt;- tidyPutts %&gt;%
   group_by(course, hole, player) %&gt;%
@@ -6492,92 +6479,92 @@ knitr::kable(a)</code></pre>
   arrange(desc(x)) %&gt;% 
   mutate(Hole = paste0(course, &quot; - hole &quot;, hole)) %&gt;% 
   ungroup() %&gt;% 
-  select(Player = player, &#39;Hole average&#39; = x, Hole, &#39;Attempts&#39; = putts.made_n,  &#39;Made&#39; = putts.made_sum) 
+  select(Player = player, puttPct = x, Hole, Attempts = putts.made_n,  Made = putts.made_sum) 
 
 a &lt;- playerHoleSummary %&gt;% 
   filter(Attempts &gt; 9) %&gt;%  head(10)
   
-knitr::kable(a)</code></pre>
+knitr::kable(a, align=c(&#39;l&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;))</code></pre>
 <table>
 <thead>
 <tr class="header">
 <th align="left">Player</th>
-<th align="left">Hole average</th>
-<th align="left">Hole</th>
-<th align="right">Attempts</th>
-<th align="right">Made</th>
+<th align="center">puttPct</th>
+<th align="center">Hole</th>
+<th align="center">Attempts</th>
+<th align="left">Made</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Alex_7</td>
-<td align="left">0.833</td>
-<td align="left">Beggars’ Knob - hole 15</td>
-<td align="right">12</td>
-<td align="right">10</td>
+<td align="center">0.833</td>
+<td align="center">Beggars’ Knob - hole 15</td>
+<td align="center">12</td>
+<td align="left">10</td>
 </tr>
 <tr class="even">
 <td align="left">Luke_3</td>
-<td align="left">0.824</td>
-<td align="left">Beggars’ Knob - hole 15</td>
-<td align="right">17</td>
-<td align="right">14</td>
+<td align="center">0.824</td>
+<td align="center">Beggars’ Knob - hole 15</td>
+<td align="center">17</td>
+<td align="left">14</td>
 </tr>
 <tr class="odd">
 <td align="left">Alex_7</td>
-<td align="left">0.667</td>
-<td align="left">Beggars’ Knob - hole 18</td>
-<td align="right">12</td>
-<td align="right">8</td>
+<td align="center">0.667</td>
+<td align="center">Beggars’ Knob - hole 18</td>
+<td align="center">12</td>
+<td align="left">8</td>
 </tr>
 <tr class="even">
 <td align="left">Luke_3</td>
-<td align="left">0.647</td>
-<td align="left">Beggars’ Knob - hole 11</td>
-<td align="right">17</td>
-<td align="right">11</td>
+<td align="center">0.647</td>
+<td align="center">Beggars’ Knob - hole 11</td>
+<td align="center">17</td>
+<td align="left">11</td>
 </tr>
 <tr class="odd">
 <td align="left">Turk</td>
-<td align="left">0.562</td>
-<td align="left">Beggars’ Knob - hole 4</td>
-<td align="right">16</td>
-<td align="right">9</td>
+<td align="center">0.562</td>
+<td align="center">Beggars’ Knob - hole 4</td>
+<td align="center">16</td>
+<td align="left">9</td>
 </tr>
 <tr class="even">
 <td align="left">Turk</td>
-<td align="left">0.562</td>
-<td align="left">Beggars’ Knob - hole 15</td>
-<td align="right">16</td>
-<td align="right">9</td>
+<td align="center">0.562</td>
+<td align="center">Beggars’ Knob - hole 15</td>
+<td align="center">16</td>
+<td align="left">9</td>
 </tr>
 <tr class="odd">
 <td align="left">Turk</td>
-<td align="left">0.500</td>
-<td align="left">Beggars’ Knob - hole 1</td>
-<td align="right">16</td>
-<td align="right">8</td>
+<td align="center">0.500</td>
+<td align="center">Beggars’ Knob - hole 1</td>
+<td align="center">16</td>
+<td align="left">8</td>
 </tr>
 <tr class="even">
 <td align="left">Turk</td>
-<td align="left">0.500</td>
-<td align="left">Beggars’ Knob - hole 10</td>
-<td align="right">16</td>
-<td align="right">8</td>
+<td align="center">0.500</td>
+<td align="center">Beggars’ Knob - hole 10</td>
+<td align="center">16</td>
+<td align="left">8</td>
 </tr>
 <tr class="odd">
 <td align="left">MDub_13</td>
-<td align="left">0.500</td>
-<td align="left">Beggars’ Knob - hole 18</td>
-<td align="right">12</td>
-<td align="right">6</td>
+<td align="center">0.500</td>
+<td align="center">Beggars’ Knob - hole 18</td>
+<td align="center">12</td>
+<td align="left">6</td>
 </tr>
 <tr class="even">
 <td align="left">Turk</td>
-<td align="left">0.500</td>
-<td align="left">Beggars’ Knob - hole 18</td>
-<td align="right">16</td>
-<td align="right">8</td>
+<td align="center">0.500</td>
+<td align="center">Beggars’ Knob - hole 18</td>
+<td align="center">16</td>
+<td align="left">8</td>
 </tr>
 </tbody>
 </table>
@@ -6589,9 +6576,12 @@ knitr::kable(a)</code></pre>
 </div>
 <div id="sortable-stats" class="section level3">
 <h3>Sortable stats</h3>
-<pre class="r"><code>playerStats %&gt;% DT::datatable(., filter = &#39;top&#39;)</code></pre>
-<div id="htmlwidget-fcb115e1c5d52818ead3" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fcb115e1c5d52818ead3">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"10\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"6\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"6\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"22\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"129\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"16\" data-max=\"347\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"5\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"49\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"18\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"3\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"8\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Luke_3","Turk","Alex_7","WRITE_INGarret Kingsbury","WRITE_INMichael G","Amrk_23","Basket Hound_6","MDub_13","WRITE_INSly Simon","WRITE_INAllison Baker","Joe_1","kjc_64","WRITE_INAndy Davis","WRITE_INDavidMaycock","WRITE_INSly_1","WRITE_INYT Simon"],["0.500","0.333","0.455","0.500","0.750","0.333","0.500","0.250","0.333","0.000","0.000","0.000","  NaN","  NaN","0.000","0.000"],[10,6,5,3,3,1,1,1,1,0,0,0,0,0,0,0],[6,6,3,2,1,1,1,3,2,4,1,1,0,0,1,3],[4,6,3,1,0,1,0,0,0,1,0,0,0,0,0,0],[24,18,13,7,6,3,2,2,2,1,0,0,0,0,0,0],[22,21,12,6,4,5,3,12,3,5,1,1,1,1,1,3],["6.23","5.95","5.17","5.50","4.00","7.00","7.00","2.67","4.33","1.20","1.00","3.00","7.00","3.00","5.00","3.33"],["0.372","0.347","0.302","0.281","0.250","0.388","0.438","0.167","0.271","0.075","0.062","0.188","0.312","0.188","0.312","0.167"],[129,115,58,27,16,31,21,32,13,6,1,3,5,3,5,8],[347,331,192,96,64,80,48,192,48,80,16,16,16,16,16,48],["0.082","0.106","0.083","0.250","0.000","0.200","0.000","0.000","0.000","0.000","0.000","0.000","0.500","0.000","0.000","0.167"],[4,5,2,3,0,2,0,0,0,0,0,0,1,0,0,1],[49,47,24,12,8,10,6,24,6,10,2,2,2,2,2,6],[" 4.7"," 3.2"," 0.8"," 0.8","-0.8"," 2.4"," 1.4","-5.9","-0.4","-4.1","-0.9","-0.4"," 0.5","-0.4"," 0.0","-1.0"],[18,16,8,5,3,3,2,4,2,4,1,1,0,0,1,2],[2,2,3,1,1,0,0,0,1,1,0,0,0,0,0,1],[2,3,1,0,0,2,1,8,0,0,0,0,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>player<\/th>\n      <th>winPct<\/th>\n      <th>W<\/th>\n      <th>L<\/th>\n      <th>T<\/th>\n      <th>points<\/th>\n      <th>rounds<\/th>\n      <th>score_mean<\/th>\n      <th>circle1mean<\/th>\n      <th>circle1made<\/th>\n      <th>circle1attempts<\/th>\n      <th>circle2mean<\/th>\n      <th>circle2made<\/th>\n      <th>circle2attempts<\/th>\n      <th>puttingWAR<\/th>\n      <th>rounds 1-on-1<\/th>\n      <th>rounds 3way<\/th>\n      <th>rounds solo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,10,11,13,14,16,17,18]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>playerStats %&gt;% DT::datatable(., filter = &#39;top&#39;, 
+          rownames = FALSE,
+          options = list(
+            columnDefs = list(list(className = &#39;dt-center&#39;, targets = 1:17)))) ## note that column numbers start from 0, not from 1.</code></pre>
+<div id="htmlwidget-b40408922ccfa26f56b7" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b40408922ccfa26f56b7">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"10\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"6\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"6\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"22\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"129\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"16\" data-max=\"347\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"5\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"49\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"18\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"3\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"8\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["Luke_3","Turk","Alex_7","WRITE_INGarret Kingsbury","WRITE_INMichael G","Amrk_23","Basket Hound_6","MDub_13","WRITE_INSly Simon","WRITE_INAllison Baker","Joe_1","kjc_64","WRITE_INAndy Davis","WRITE_INDavidMaycock","WRITE_INSly_1","WRITE_INYT Simon"],["0.500","0.333","0.455","0.500","0.750","0.333","0.500","0.250","0.333","0.000","0.000","0.000","  NaN","  NaN","0.000","0.000"],[10,6,5,3,3,1,1,1,1,0,0,0,0,0,0,0],[6,6,3,2,1,1,1,3,2,4,1,1,0,0,1,3],[4,6,3,1,0,1,0,0,0,1,0,0,0,0,0,0],[24,18,13,7,6,3,2,2,2,1,0,0,0,0,0,0],[22,21,12,6,4,5,3,12,3,5,1,1,1,1,1,3],["6.23","5.95","5.17","5.50","4.00","7.00","7.00","2.67","4.33","1.20","1.00","3.00","7.00","3.00","5.00","3.33"],["0.372","0.347","0.302","0.281","0.250","0.388","0.438","0.167","0.271","0.075","0.062","0.188","0.312","0.188","0.312","0.167"],[129,115,58,27,16,31,21,32,13,6,1,3,5,3,5,8],[347,331,192,96,64,80,48,192,48,80,16,16,16,16,16,48],["0.082","0.106","0.083","0.250","0.000","0.200","0.000","0.000","0.000","0.000","0.000","0.000","0.500","0.000","0.000","0.167"],[4,5,2,3,0,2,0,0,0,0,0,0,1,0,0,1],[49,47,24,12,8,10,6,24,6,10,2,2,2,2,2,6],[" 4.7"," 3.2"," 0.8"," 0.8","-0.8"," 2.4"," 1.4","-5.9","-0.4","-4.1","-0.9","-0.4"," 0.5","-0.4"," 0.0","-1.0"],[18,16,8,5,3,3,2,4,2,4,1,1,0,0,1,2],[2,2,3,1,1,0,0,0,1,1,0,0,0,0,0,1],[2,3,1,0,0,2,1,8,0,0,0,0,1,1,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>player<\/th>\n      <th>winPct<\/th>\n      <th>W<\/th>\n      <th>L<\/th>\n      <th>T<\/th>\n      <th>points<\/th>\n      <th>rounds<\/th>\n      <th>score_mean<\/th>\n      <th>circle1mean<\/th>\n      <th>circle1made<\/th>\n      <th>circle1attempts<\/th>\n      <th>circle2mean<\/th>\n      <th>circle2made<\/th>\n      <th>circle2attempts<\/th>\n      <th>puttingWAR<\/th>\n      <th>rounds 1-on-1<\/th>\n      <th>rounds 3way<\/th>\n      <th>rounds solo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-center","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script>
 <p><span class="math inline">\(~\)</span></p>
 <p><span class="math inline">\(~\)</span></p>
 <p><span class="math inline">\(~\)</span></p>
@@ -6609,49 +6599,48 @@ knitr::kable(a)</code></pre>
   mutate(totalRounds = score_n) %&gt;% 
   mutate(x = score_mean) %&gt;% 
   mutate(x = format(round(x, digits = 2), nsmall = 2)) %&gt;%
-  select(course, &#39;Average Score&#39; = x, &#39;High Score&#39; = score_max, totalRounds, &#39;Most Putts Made&#39; =putts.made_max, &#39;Median Score&#39; = score_median)
+  select(course, &#39;Average Score&#39; = x, &#39;High Score&#39; = score_max, &#39;Most Putts Made&#39; =putts.made_max, &#39;Total Rounds&#39; = totalRounds)
 
 b &lt;- data.frame(t(a))
 #b %&gt;%  rownames_to_column(&quot;statistic&quot;)
 
 names(b) &lt;- b[1,]
 
+
+
 c &lt;- b[-1,] %&gt;% rownames_to_column(&quot;statistic&quot;) #%&gt;% arrange((statistic))
 
-knitr::kable(c)</code></pre>
+names(c) &lt;- paste0(&quot;___&quot;, names(c), &quot;___&quot;)
+
+knitr::kable(c, align=c(&#39;r&#39;, &#39;c&#39;, &#39;c&#39;, &#39;c&#39;))</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">statistic</th>
-<th align="left">Beggars’ Knob</th>
-<th align="left">Prospector’s Ridge</th>
+<th align="right"><strong><em>statistic</em></strong></th>
+<th align="center"><strong><em>Beggars’ Knob</em></strong></th>
+<th align="center"><strong><em>Prospector’s Ridge</em></strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Average Score</td>
-<td align="left">4.87</td>
-<td align="left">6.60</td>
+<td align="right">Average Score</td>
+<td align="center">4.87</td>
+<td align="center">6.60</td>
 </tr>
 <tr class="even">
-<td align="left">High Score</td>
-<td align="left">10</td>
-<td align="left">10</td>
+<td align="right">High Score</td>
+<td align="center">10</td>
+<td align="center">10</td>
 </tr>
 <tr class="odd">
-<td align="left">totalRounds</td>
-<td align="left">91</td>
-<td align="left">10</td>
+<td align="right">Most Putts Made</td>
+<td align="center">9</td>
+<td align="center">10</td>
 </tr>
 <tr class="even">
-<td align="left">Most Putts Made</td>
-<td align="left">9</td>
-<td align="left">10</td>
-</tr>
-<tr class="odd">
-<td align="left">Median Score</td>
-<td align="left">5.0</td>
-<td align="left">6.5</td>
+<td align="right">Total Rounds</td>
+<td align="center">91</td>
+<td align="center">10</td>
 </tr>
 </tbody>
 </table>
@@ -6662,11 +6651,20 @@ knitr::kable(c)</code></pre>
 <div id="contact" class="section level1">
 <h1>Contact</h1>
 <p>Disc Putting Championship - <a href="mailto:discputtingchampionship@gmail.com" class="email">discputtingchampionship@gmail.com</a></p>
-<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSekk5AX4sNW7q8TWSEnXYJ1fe3KR8XbvAJBWFlKSCbXGHOORw/viewform">Player
-Registration</a></p>
-<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfcKdf9TDGmvH833hY7VjvGoKKUQCgsLKIQF-A2UbsIelfTSA/viewform?usp=sf_link">Course
-Registration</a></p>
 <p><span class="math inline">\(~\)</span></p>
+<p><span class="math inline">\(~\)</span></p>
+</div>
+<div id="register" class="section level1">
+<h1>Register</h1>
+<div id="player-registration" class="section level4">
+<h4><a href="https://docs.google.com/forms/d/e/1FAIpQLSekk5AX4sNW7q8TWSEnXYJ1fe3KR8XbvAJBWFlKSCbXGHOORw/viewform">Player
+Registration</a></h4>
+</div>
+<div id="course-registration" class="section level4">
+<h4><a href="https://docs.google.com/forms/d/e/1FAIpQLSfcKdf9TDGmvH833hY7VjvGoKKUQCgsLKIQF-A2UbsIelfTSA/viewform">Course
+Registration</a></h4>
+<p><span class="math inline">\(~\)</span></p>
+</div>
 <div id="scorecard" class="section level4">
 <h4><a href="https://docs.google.com/forms/d/e/1FAIpQLSdZlQnmdbSv2BY1mxqzvmxMnkSR56L9buXUHy6r0ych_hm2vg/viewform">Scorecard</a></h4>
 <p><span class="math inline">\(~\)</span></p>
@@ -6694,7 +6692,7 @@ data.frame(x=Sys.time()) %&gt;%  ## GMT +4?
   write_sheet(., ss = &quot;https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=1215521890&quot;, sheet = &quot;StatsLastUpdated&quot;)</code></pre>
 <p>2022-07-22 21:05:13 &gt;&gt; Most recent game in dataset</p>
 <p><span class="math inline">\(~\)</span></p>
-<p>2022-07-23 15:03:47 &gt;&gt; Stats last updated</p>
+<p>2022-07-23 17:17:18 &gt;&gt; Stats last updated</p>
 </div>
 </div>
 
