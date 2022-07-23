@@ -269,4 +269,4 @@ write_sheet(playerStats, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxq
 
 write_sheet(puttingWAR, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "puttingWAR")
 
-rmarkdown::render("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\WPC homepage.RMD", output_format = 'html_document', output_file = 'index.html')
+rmarkdown::render("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\WPC homepage.RMD", output_format = 'html_document', output_file = 'C:\\!RlocalProjectsGit\\putting-leaderboards-1\\index.html')
