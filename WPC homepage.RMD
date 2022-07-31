@@ -505,15 +505,20 @@ write_sheet(playerHoleSummary, ss = "https://docs.google.com/spreadsheets/d/13T0
 
 write_sheet(courseHoleSummary, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "courseHoleSummary")
 
+#write_sheet(tidyPutts, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "tidyPutts")
+
 
 data.frame(x=Sys.time()) %>%  ## GMT +4?
   mutate(StatsLastUpdated = format(x, tz="America/New_York")) %>% 
   select(-x) %>% 
   write_sheet(., ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=1215521890", sheet = "StatsLastUpdated")
 
+
+mostRecentGame <- tidyPutts %>% filter(Timestamp == max(Timestamp)) %>% select(course, Timestamp) %>% unique()
+
 ```
 
-`r max(tidyPutts$Timestamp)` >> Most recent game in dataset
+`r paste0(mostRecentGame$Timestamp, " at ", mostRecentGame$course)` >> Most recent game in dataset
 
 $~$
 
