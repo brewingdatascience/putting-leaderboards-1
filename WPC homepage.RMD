@@ -32,18 +32,14 @@ $~$
 
 # Player stats
 ```{r warning=FALSE, message=FALSE}
-
 library(tidyverse)
 library(googlesheets4)
-
 ## import raw scoring data from gsheet 'Disc Putting Scorecard_BH1 (Responses)'
 a <- read_sheet("https://docs.google.com/spreadsheets/d/1zsM6NH5NoT_QI7be9z1VnkurByc9DsmGCzeoomI5AoY/edit#gid=184111277")
 names(a) <- make.names(names(a))
 gsraw <- as.data.frame(a) %>% 
   mutate(Special.Notes = as.character(Special.Notes))
-
 circle2s <- read_sheet("https://docs.google.com/spreadsheets/d/1qmQB_rLHvEdNmKP3omnVYM2yn5UlibUx3y-WmrSZij8/edit#gid=1610389370", sheet = "circle2s")
-
 ## extract separate object for each game type & position
 ### tidy solo rounds
 tidySolo <- gsraw %>%
@@ -65,8 +61,6 @@ tidySolo <- gsraw %>%
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(result == "putt made", 1, 999)))  %>%
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made)
-
-
 ### tidy 1-on-1 (h2h) rounds part1:  home player
 tidy1on1_home <- gsraw %>% filter(Game.style == "1-on-1") %>% 
   mutate(player = if_else(Home == "OTHER_WRITE_IN",
@@ -86,7 +80,6 @@ tidy1on1_home <- gsraw %>% filter(Game.style == "1-on-1") %>%
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("home", result)==TRUE, 1, 0)))  %>%
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made)
-
 ### tidy 1-on-1 (h2h) rounds part2:  visiting player
 tidy1on1_visitor <- gsraw %>% filter(Game.style == "1-on-1") %>% 
   mutate(player = if_else(Visitor == "OTHER_WRITE_IN",
@@ -106,7 +99,6 @@ tidy1on1_visitor <- gsraw %>% filter(Game.style == "1-on-1") %>%
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("visitor", result)==TRUE, 1, 0)))  %>%
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made)
-
 ### tidy 3way rounds rounds part1 of 3:  home player (aka player1)
 tidy3way_player1 <- gsraw %>% filter(Game.style == "3way") %>% 
   mutate(player = if_else(player1 == "OTHER_WRITE_IN",
@@ -125,7 +117,6 @@ tidy3way_player1 <- gsraw %>% filter(Game.style == "3way") %>%
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("player1", result)==TRUE, 1, 0))) %>%
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made)
-
 ### tidy 3way rounds rounds part2 of3:  player2
 tidy3way_player2 <- gsraw %>% filter(Game.style == "3way") %>% 
   mutate(player = if_else(player2 == "OTHER_WRITE_IN",
@@ -144,7 +135,6 @@ tidy3way_player2 <- gsraw %>% filter(Game.style == "3way") %>%
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("player2", result)==TRUE, 1, 0)))  %>%
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made)
-
 ### tidy 3way rounds rounds part3 of3:  player3
 tidy3way_player3 <- gsraw %>% filter(Game.style == "3way") %>% 
   mutate(player = if_else(player3 == "OTHER_WRITE_IN",
@@ -163,7 +153,6 @@ tidy3way_player3 <- gsraw %>% filter(Game.style == "3way") %>%
   mutate(putts.made = if_else(is.na(result), 0, 
                               ifelse(grepl("player3", result)==TRUE, 1, 0))) %>%
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made)
-
 ## rbind and add course info
 tidyPutts <- rbind(tidy1on1_home, tidy1on1_visitor) %>% 
   rbind(., tidy3way_player1) %>% 
@@ -178,9 +167,6 @@ tidyPutts <- rbind(tidy1on1_home, tidy1on1_visitor) %>%
   arrange(desc(Timestamp)) %>%
   
   select(course, Timestamp, Game.style, position, Purpose, Outcome, Special.Notes, player, hole, putts.made, score, circle2)
-
-
-
 ## Individual Rounds
 # calculate winner
 WLT <- tidyPutts %>% 
@@ -197,16 +183,13 @@ WLT <- tidyPutts %>%
   ungroup() %>% 
   pivot_wider(names_from = WLT, values_from = n) %>% arrange(desc(W, T)) %>% 
   select(player, W, L, T)
-
 WLT[is.na(WLT)] <- 0 ## replace NA with zero
-
 WLT <- WLT %>% 
   mutate(points = 2*W +T) %>% 
   mutate(winPct = round(W/(W+L+T), 3)) %>% 
   mutate(winPct = format(round(winPct, digits = 3), nsmall = 3)) %>%
   select(player, winPct, everything()) %>% 
   arrange(desc(points))
-
 individualRounds <- tidyPutts %>% 
   mutate(chartime = as.character(Timestamp)) %>% 
   group_by(course, player, Timestamp, Game.style, position, Purpose, Outcome) %>% 
@@ -216,8 +199,6 @@ individualRounds <- tidyPutts %>%
   mutate(circle2s = score-putts.made) %>% 
   arrange(desc(score)) %>% 
   select(player, score, circle2s, putts.made, everything())
-
-
 courseHoleSummary <- tidyPutts %>% 
   group_by(course, hole) %>% 
   summarise_at(.,vars(putts.made), 
@@ -227,9 +208,6 @@ courseHoleSummary <- tidyPutts %>%
   mutate(madePct =round(100*(made/attempts), 1)) %>% 
   mutate(holeChar = paste0("hole", hole)) %>% 
   select(course, hole, attempts, made, madePct)
-
-
-
 ## Average score for each course >> courseMeanScore
 courseMeanScore <- individualRounds %>%
   group_by(course) %>%
@@ -239,8 +217,6 @@ courseMeanScore <- individualRounds %>%
   mutate(leagueMean = score_mean) %>%
   mutate(leagueSD = score_sd) %>%
   select(course, leagueMean, leagueSD)
-
-
 ##putting WAR
 puttingWAR <- individualRounds %>% 
   left_join(courseMeanScore, by = "course") %>% 
@@ -253,8 +229,6 @@ puttingWAR <- individualRounds %>%
   arrange(desc(x)) %>% 
   mutate(x = format(round(x, digits = 1), nsmall = 1)) %>% 
   select(player, puttingWAR = x)
-
-
 ## player circle1s
 player_circle1 <- tidyPutts %>% filter(circle2 == 0) %>%
   group_by(player) %>% 
@@ -268,8 +242,6 @@ player_circle1 <- tidyPutts %>% filter(circle2 == 0) %>%
          circle1attempts = putts.made_n,
          circle1made = putts.made_sum) %>% 
   select(player, circle1mean, circle1made, circle1attempts)
-
-
 ## player circle2s
 player_circle2 <- tidyPutts %>% filter(circle2 == 1) %>%
   group_by(player) %>% 
@@ -283,8 +255,6 @@ player_circle2 <- tidyPutts %>% filter(circle2 == 1) %>%
          circle2attempts = putts.made_n,
          circle2made = putts.made_sum) %>% 
   select(player, circle2mean, circle2made, circle2attempts)
-
-
 ## player mean score
 player_meanScore <- individualRounds %>% 
   group_by(player) %>% 
@@ -294,14 +264,11 @@ player_meanScore <- individualRounds %>%
   arrange(desc(score_mean)) %>% 
   mutate(score_mean = format(round(score_mean, digits = 2), nsmall = 2)) %>%
   select(player, rounds=score_n, score_mean)
-
 ## player games
 player_games <- individualRounds %>% group_by(player, Game.style) %>% tally() %>% ungroup() %>% 
   pivot_wider(names_from = Game.style, values_from = n) %>% 
   select(player, "rounds 1-on-1" = "1-on-1" , "rounds 3way" = "3way", "rounds solo" = solo)
 player_games[is.na(player_games)] <- 0 ## replace NA with zero
-
-
 ##player stats
 playerStats <- WLT %>% 
   left_join(., player_meanScore, by = "player") %>% 
@@ -309,7 +276,6 @@ playerStats <- WLT %>%
   left_join(., player_circle2, by = "player") %>% 
   left_join(., puttingWAR, by = "player")  %>% 
   left_join(., player_games, by = "player")
-
 ```
 
 
@@ -319,11 +285,9 @@ a <- WLT %>%
   filter(W+L+T > 2) %>%
   arrange(desc(winPct)) %>% 
   select(Player = player, winPct, W, L, T) %>% head(10) #%>% DT::datatable(., filter = 'top') 
-
 knitr::kable(a, align=c('l', 'c', 'c', 'c', 'c'))
 ```
 > *minimum 3 games played, includes both 1-on-1 and 3way games.
-
 $~$
 
 $~$
@@ -331,34 +295,28 @@ $~$
 ### Average score*
 
 ```{r}
-
 ###  Average Score
 a <- player_meanScore  %>% 
   filter(rounds >2) %>%
   arrange(desc(score_mean), rounds) %>% 
   head(10) %>% 
     select(Player = player, 'Average score'= score_mean, Rounds = rounds) 
-
 knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 > *minimum 3 rounds
-
 $~$
 
 $~$
 
 ### Circle1 leaders*
 ```{r}
-
 a <- player_circle1 %>% 
   filter(circle1attempts >9) %>% 
   head(10) %>% 
   select(Player = player, Circle1pct= circle1mean, Attempts=circle1attempts, Made = circle1made) 
-
 knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 > *minimum 10 attempts
-
 $~$
 
 $~$
@@ -367,16 +325,13 @@ $~$
 ### Circle2 leaders*
 
 ```{r}
-
 a <- player_circle2 %>% 
    filter(circle2attempts >2)  %>%  
   head(10) %>% 
   select(Player = player, Circle2pct= circle2mean, Attempts = circle2attempts, Made = circle2made)
-
 knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 > *minimum 3 attempts
-
 
 $~$
 
@@ -396,7 +351,6 @@ playerHoleSummary <- tidyPutts %>%
   mutate(Hole = paste0(course, " - hole ", hole)) %>% 
   ungroup() %>% 
   select(Player = player, puttPct = x, Hole, Attempts = putts.made_n,  Made = putts.made_sum) 
-
 a <- playerHoleSummary %>% 
   filter(Attempts > 9) %>%  head(10)
   
@@ -404,7 +358,6 @@ knitr::kable(a, align=c('l', 'c', 'c', 'c'))
 ```
 
 > *minimum 10 attempts
-
 $~$
 
 $~$
@@ -440,18 +393,11 @@ a <- individualRounds %>%
   mutate(x = score_mean) %>% 
   mutate(x = format(round(x, digits = 2), nsmall = 2)) %>%
   select(course, 'Average Score' = x, 'High Score' = score_max, 'Most Putts Made' =putts.made_max, 'Total Rounds' = totalRounds)
-
 b <- data.frame(t(a))
 #b %>%  rownames_to_column("statistic")
-
 names(b) <- b[1,]
-
-
-
 c <- b[-1,] %>% rownames_to_column("statistic") #%>% arrange((statistic))
-
 names(c) <- paste0("___", names(c), "___")
-
 knitr::kable(c, align=c('r', 'c', 'c', 'c'))
 ```
 
@@ -491,31 +437,18 @@ $~$
 ```{r warning=FALSE, message=FALSE}
 #write local copies
 #gsraw %>%  mutate(Special.Notes = as.character(Special.Notes)) %>%   write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\Disc Putting Form Responses 1_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
-
 #individualRounds %>% write.csv(paste0("C:\\!RlocalProjectsGit\\putting-leaderboards-1\\individual Disc Putting Rounds_", strftime(Sys.time(), "%Y%m%d%H%M"),  ".csv"))
-
 write_sheet(individualRounds, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "individualRounds")
-
 # write tables to googlesheet
 write_sheet(playerStats, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "playerStats")
-
-
 write_sheet(playerHoleSummary, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "playerHoleSummary")
-
-
 write_sheet(courseHoleSummary, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "courseHoleSummary")
-
 #write_sheet(tidyPutts, ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=878454155", sheet = "tidyPutts")
-
-
 data.frame(x=Sys.time()) %>%  ## GMT +4?
   mutate(StatsLastUpdated = format(x, tz="America/New_York")) %>% 
   select(-x) %>% 
   write_sheet(., ss = "https://docs.google.com/spreadsheets/d/13T0Y1pAxqhL7rzRcFwtnFZPUFHeBIldcqLk1RF172nM/edit#gid=1215521890", sheet = "StatsLastUpdated")
-
-
 mostRecentGame <- tidyPutts %>% filter(Timestamp == max(Timestamp)) %>% select(course, Timestamp) %>% unique()
-
 ```
 
 `r paste0(mostRecentGame$Timestamp, " at ", mostRecentGame$course)` >> Most recent game in dataset
